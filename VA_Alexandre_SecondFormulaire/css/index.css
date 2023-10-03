@@ -1,0 +1,80 @@
+body {
+    background: gray;
+}
+
+input,
+.fakefile {
+    margin: 5px;
+    background-color: darkgray;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+input:focus,
+input:hover,
+.fakefile:focus,
+.fakefile:hover {
+    background-color: #918e8e;
+}
+
+legend {
+    font-size: large;
+
+}
+
+fieldset {
+    border-radius: 5%;
+}
+
+.fake-file {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.fake-file:hover,
+.fake-file:focus {
+    border: 2px solid #ccc;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.text-top {
+    vertical-align: top;
+}
+
+.fit-content {
+    width: fit-content;
+    height: fit-content;
+}
+
+.center-content {
+    justify-content: center;
+    align-content: center;
+}
+
+.center-self {
+    justify-self: center;
+    align-self: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.div-input {
+    border-bottom: 1px solid #aaa9a9;
+}
