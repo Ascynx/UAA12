@@ -7,49 +7,41 @@
 </head>
 <body> 
     <div>
+        <p>Etape 0</p>
         <?php
-            echo "<p>Etape 0</p>";
             echo "Hello World";
         ?>
     </div>
     
     <div>
-        <?php
-            echo "<p>Etape 1</p>";
-            for ($i = 1; $i <= 10; $i++) {
-                echo "<p>Le nombre vaut " . $i . "</p>";
-            }
-        ?>
+        <p>Etape 1</p>
+        <?php for ($i = 1; $i <= 10; $i++): ?>
+            <p>Le nombre vaut <?=$i?> </p>    
+        <?php endfor ?>
     </div>
     
     <div>
-        <?php
-            echo "<p>Etape 2</p>";
-            for ($i = 1; $i <= 10; $i++) {
-                if ($i != 3) {
-                    echo "<p>Le nombre vaut " . $i . "</p>";
-                }
-            }
-        ?>
+        <p>Etape 2</p>
+        <?php for ($i = 1; $i <= 10; $i++): ?>
+            <?php if ($i != 3): ?>
+                <p>Le nombre vaut <?=$i?></p>
+            <?php endif ?>
+        <?php endfor ?>
     </div>
 
     <div>
-        <?php
-            echo "<p>Etape 3</p>";
-            for ($i = 1; $i <= 10; $i++) {
-                if ($i >= 8 || $i <= 3) {
-                    echo "<p> Le nombre vaut " . $i . "</p>";
-                }
-            }
-        ?>
+        <p>Etape 3</p>
+        <?php for ($i = 1; $i <= 10; $i++): ?>
+            <?php if ($i >= 8 || $i <= 3): ?>
+                    <p>Le nombre vaut <?=$i?></p>
+            <?php endif ?>
+        <?php endfor ?>
     </div>
 
     <div>
-        <?php
-            echo "<p>Etape 4</p>";
-            echo "<p>La valeur absolue de -5 vaut " . abs(-5) . "</p>";
-            echo "<p>La valeur absolue de 10 vaut " . abs(10) . "</p>";
-        ?>
+        <p>Etape 4</p>
+        <p>La valeur absolue de -5 vaut <?=abs(-5)?></p>;
+        <p>La valeur absolue de 10 vaut <?=abs(10)?></p>;
     </div>
 </body>
 </html>
