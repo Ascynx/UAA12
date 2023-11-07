@@ -1,0 +1,30 @@
+header {
+    background-color: #deb888;
+    padding: 1em;
+}
+
+main {
+    background-color: #faebd7;
+    margin: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+h1 {
+    color: darkred;
+    text-decoration: underline;
+}
+
+.big {
+    font-size: larger;
+}
+
+.bold {
+    font-weight: bold;
+}
