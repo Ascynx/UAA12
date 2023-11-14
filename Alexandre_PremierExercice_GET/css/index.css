@@ -1,0 +1,70 @@
+body {
+    background-color: bisque;
+}
+
+form {
+    background-color: black;
+    max-width: fit-content;
+}
+
+legend {
+    color: white;
+}
+
+.deviner {
+    background-color: white;
+    padding: 10em;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.center-self {
+    justify-self: center;
+    align-self: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.self-right {
+    justify-self: right;
+}
+
+.bar-above {
+    border-top: 2px solid black;
+}
+
+.bar-under {
+    border-bottom: 2px solid black;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.box {
+    margin: 1em;
+}
+
+.big {
+    font-size: xx-large;
+}
+
+.fullcaps {
+    text-transform: uppercase;
+}
+
+.beegbutton {
+    height: 4em;
+}
+
+#guess {
+    width: 8em;
+}
