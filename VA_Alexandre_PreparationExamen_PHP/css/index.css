@@ -1,0 +1,32 @@
+html {
+    background-color: beige;
+}
+
+div {
+    margin: 2px;
+    padding: 3px;
+}
+
+form > div {
+    border: solid darkgray 1px;
+}
+
+input[type=number] {
+    background-color: lightcyan;
+}
+
+fieldset {
+    border: solid black 1px;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
