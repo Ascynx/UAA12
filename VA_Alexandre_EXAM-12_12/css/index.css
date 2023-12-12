@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+
+html {
+    font-family: 'Poppins', sans-serif;
+    font-size: 100;
+    font-weight: thin;
+
+    background-color: rgb(211, 222, 218);
+}
+
+h1 {
+    color: white;
+}
+
+img {
+    max-width: 50px;
+}
+
+fieldset {
+    width: 40%;
+}
+
+button {
+    border-radius: 50%;
+    padding: 1em;
+}
+
+.button {
+    margin: 1em;
+}
+
+button:hover {
+    background-color: #324D61;
+    cursor: grab;
+}
+
+header, footer {
+    background-color: rgb(24, 61, 61);
+    text-align: center;
+}
+
+input[type="submit"] {
+    max-width: fit-content;
+}
+
+input[type="submit"]:hover {
+    background-color: #49545C;
+    cursor: grab;
+}
+
+input:not([type="submit"]), select {
+    border: 2px rgb(118, 118, 118) rgb(56, 55, 55);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+legend {
+    font-size: 2em;
+    text-align: center;
+    padding: 5px;
+}
+
+label:not(.label_nostyle) {
+    font-size: 1.5em;
+    margin: 20px 0 20px 0;
+    text-decoration: underline;
+}
+
+.nav {
+    justify-content: space-around;
+}
+
+.main {
+    width: 90%
+}
+
+.form-div {
+    flex-grow: 5;
+}
+
+.form-stuff {
+    background-color: #324D61;
+}
+
+.center-content {
+    justify-content: center;
+    align-content: center;
+}
+
+.center-self {
+    justify-self: center;
+    align-self: center;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.ovale {
+    background-color: #899CAB;
+    color: whitesmoke;
+}
+
+.images {
+    width: 120px;
+}
