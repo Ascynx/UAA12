@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    background-color: gray;
+}
+
+.blue-bg {
+    background-color: darkcyan;
+}
+
+.gray-bg, .grey-bg {
+    background-color: gray;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.center-self {
+    align-self: center;
+    justify-self: center;
+}
+
+.center-items {
+    align-items: center;
+    justify-items: center;
+}
+
+.center-content {
+    align-content: center;
+    justify-content: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.padded {
+    padding: 20px;
+}

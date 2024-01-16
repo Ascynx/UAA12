@@ -1,4 +1,6 @@
 <?php
+    require_once("Models/sqlFuncModel.php");
+
     enum Access: int {
         case Visiteur = 0;
         case Manager = 1;
@@ -48,7 +50,7 @@
         if ($intAccess == null) {
             return null;
         }
-        return Access::from($intAccess);
+        return Access::tryFrom($intAccess);
     }
 
     function getUserAccess($userId): int {
@@ -59,6 +61,25 @@
             return null;
         }
         return $results[0];
+    }
+
+    function loadUser($userId): object {
+        $pdo = get_pdo();
+        $query = createAllDataUserQuery($userId);
+        $results = run_query($pdo, $query);
+        if (sizeof($results) == 0) {
+            return null;
+        }
+        return $results[0];
+    }
+
+    function createTestUser(): array {
+        $u = array('userId' => "test", "user_name" => "Ascynx", "user_salt" => "unset", "user_salted_hash" => "unset", "user_access" => 0);
+        return $u;
+    }
+
+    function createAllDataUserQuery($userId): string {
+        return create_user_query("*", $userId);
     }
 
     function create_user_query($column, $userId): string {
