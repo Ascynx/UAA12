@@ -1,5 +1,6 @@
 <?php
     require_once("Models/userModel.php");
+    require_once("Models/pageSortingModel.php");
 
     $uri = $_SERVER["REQUEST_URI"];
     $loggedIn = logged_in();
@@ -7,50 +8,22 @@
         $user = load_user();
     }
 
-    if (str_ends_with($uri, '/index.php') || str_ends_with($uri, '/')) {
-        $template = "Views/accueil";
-        if ($loggedIn) {
-            $template = $template . "_logged.php";
-        } else {
-            $template = $template . ".php"; 
-        }
-
+    if (isPage("/", true, $loggedIn) || isPage("/index.php", true, $loggedIn)) {
+        $template = "Views/Users/loggedIn.php";
+        $title = "Bienvenue " . $user["user_name"];
+        require_once("Views/base.php");
+    } else if (isPage("/", false, $loggedIn) || isPage("/index.php", false, $loggedIn)) {
+        $template = "Views/accueil.php";
         $title = "Bienvenue";
         require_once("Views/base.php");
-    }
-
-    function logged_in(): bool {
-        if (!isset($_SESSION['userId']) || !isset($_SESSION['userHash'])) {
-            return false;
-        }
-
-        $userId = $_SESSION['userId'];
-        $userHash = $_SESSION['userHash'];
-        if (!isset($userHash) || !isset($userId)) {
-            return false;
-        }
-
-        if ($userId === "test") {
-            return true;
-        }
-
-        return isUserLoggedIn($userId, $userHash);
-    }
-
-    function load_user(): bool | array {
-        if (!isset($_SESSION['userId']) || !isset($_SESSION['userHash'])) {
-            return false;
-        }
-
-        $userId = $_SESSION['userId'];
-        $userHash = $_SESSION['userHash'];
-        if (!isset($userHash) || !isset($userId)) {
-            return false;
-        }
-
-        if ($userId === "test") {
-            return createTestUser();
-        }
-
-        return loadUser($userId); 
+    } else if (isPage("/testLogin", true, $loggedIn)) {//ces deux pages sont temporaires et seront supprimé quand plus nécessaire.
+        unset($_SESSION["userId"]);
+        unset($_SESSION["userHash"]);
+        header("Location:".$_SERVER['HTTP_HOST']);
+        die();
+    } else if (isPage("/testLogin", false, $loggedIn)) {
+        $_SESSION["userId"] = "test";
+        $_SESSION["userHash"] = "unset";
+        header("Location:".$_SERVER['HTTP_HOST']);
+        die();
     }

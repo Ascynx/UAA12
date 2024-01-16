@@ -7,6 +7,42 @@
         case Administrateur = 2;
     }
 
+    function logged_in(): bool {
+        if (!isset($_SESSION['userId']) || !isset($_SESSION['userHash'])) {
+            return false;
+        }
+
+        $userId = $_SESSION['userId'];
+        $userHash = $_SESSION['userHash'];
+        if (!isset($userHash) || !isset($userId)) {
+            return false;
+        }
+
+        if ($userId === "test") {
+            return true;
+        }
+
+        return isUserLoggedIn($userId, $userHash);
+    }
+
+    function load_user(): bool | array {
+        if (!isset($_SESSION['userId']) || !isset($_SESSION['userHash'])) {
+            return false;
+        }
+
+        $userId = $_SESSION['userId'];
+        $userHash = $_SESSION['userHash'];
+        if (!isset($userHash) || !isset($userId)) {
+            return false;
+        }
+
+        if ($userId === "test") {
+            return createTestUser();
+        }
+
+        return loadUser($userId); 
+    }
+
     function isUserLoggedIn($userId, $userHash): bool {
         $remote_hash = getUserHash($userId);
         if ($remote_hash != $userHash) {
