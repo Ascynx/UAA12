@@ -3,3 +3,4 @@
     require_once("Config/sqlConnect.php");
 
     require_once("Controllers/indexController.php");
+    require_once("Controllers/userController.php");

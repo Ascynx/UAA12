@@ -1,6 +1,5 @@
 <?php
-    function isPage(string $wanted_page, bool $needs_login, bool $loggedIn): bool {
-        $uri = $_SERVER['REQUEST_URI'];
+    function isPage(string $uri, string $wanted_page, bool $needs_login, bool $loggedIn): bool {
         if ($needs_login && !$loggedIn) {
             return false;
         }

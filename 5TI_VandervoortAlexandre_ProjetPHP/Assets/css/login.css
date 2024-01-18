@@ -1,0 +1,108 @@
+body {
+    background-image: linear-gradient(rgb(77, 69, 69), rgb(78, 36, 36));
+}
+
+.login-sheet {
+    background-image: linear-gradient(rgb(21, 177, 177), rgb(20, 104, 104));
+    width: fit-content;
+    padding: 30px;
+    border-radius: 15%;
+}
+
+.error {
+    color: red;
+    text-transform: bold;
+}
+
+.user-image {
+    padding-bottom: max(20px, 1em);
+}
+
+.switch {
+    font-size: max(8px, 0.75em);
+    color: rgb(179, 179, 179);
+    padding: 0;
+    margin: 0;
+}
+
+.switch>a {
+    text-decoration: none;
+    text-transform: none;
+    color: inherit;
+}
+
+.switch>a:hover,
+.switch>a:focus {
+    color: rgb(165, 151, 151); 
+}
+
+.form-element {
+    padding: 3px;
+}
+
+input:required:placeholder-shown {
+    background-image: radial-gradient(#F00 15%, transparent 16%), radial-gradient(#F00 15%, transparent 16%);
+    background-size: 1em 1em;
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+
+.form-element:has(> input:not([type="submit"])) {
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    padding:  0.25em;
+    background-color: #fff;
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin-bottom: 0.3em;
+}
+
+.form-element:has(>input:not([type="submit"])):hover,
+.form-element:has(>input:not([type="submit"])):focus {
+    outline: 2px solid rgb(133, 130, 130);
+    outline-offset: -3px;
+}
+
+.form-element>input:not([type="submit"]) {
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    padding: none;
+    background-color: transparent;
+    border: none;
+}
+
+.form-element>input:not([type="submit"]):hover,
+.form-element>input:not([type="submit"]):focus {
+    outline: none;
+}
+
+input:not(textarea):not([type="submit"]) {
+    line-height: 1;
+    height: 1.5em;
+}
+
+.form-element>input[type="submit"] {
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    background-color: rgba(56, 53, 53, 0.6);
+    padding: 0.5em 4em;
+    border: 2px solid transparent;
+    border-radius: 3%;
+    margin-top: 10px;
+}
+
+.form-element>input[type="submit"]:hover,
+.form-element>input[type="submit"]:focus {
+    background-color: rgba(77, 72, 72, 0.6);
+}
+
+.img-container {
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+}

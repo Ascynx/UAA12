@@ -14,5 +14,5 @@
         $GLOBALS['pdo'] = $pdo;
     } catch (PDOException $e) {
         $message = $e->getMessage();
-        die($message);
+        die("Uh oh, le site n'a réussi à charger: " . $message);
     }

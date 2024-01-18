@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Assets/css/base.css">
     <title><?= $title ?> </title>
 </head>
 <body>
     <header>
         <?php require_once("Views/Components/nav.php"); ?>
     </header>
-    <main>
+    <main class="<?=$main_style?>">
         <?php require_once($template) ?>
     </main>
     <footer>
