@@ -17,11 +17,16 @@
     function execute_query(PDOStatement $prepared_query): void {
         $prepared_query->execute();
     }
+
+    function execute_with(PDOStatement $prepared_query, array $query_elements): void {
+        $prepared_query->execute($query_elements);
+    }
+
     function get_query_response(PDOStatement $executed_query): array|false {
         return $executed_query->fetchAll();
     }
 
-    function run_query(PDO $pdo, $query): array {
+    function run_query(PDO $pdo, string $query): array {
         $prepared_query = prepare_query($pdo, $query);
         if (!$prepared_query) {
             throw new Exception("Failed to prepare query");
@@ -29,7 +34,21 @@
 
         execute_query($prepared_query);
         $results = get_query_response($prepared_query);
-        if (!$results) {
+        if (!$results && !is_array($results)) {
+            throw new Exception("Failed to run query");
+        }
+        return $results;
+    }
+
+    function run_advanced_query(PDO $pdo, string $query, array $queryables): array {
+        $prepared_query = prepare_query($pdo, $query);
+        if (!$prepared_query) {
+            throw new Exception("Failed to prepare query");
+        }
+
+        execute_query($prepared_query, $queryables);
+        $results = get_query_response($prepared_query);
+        if (!$results && !is_array($results)) {
             throw new Exception("Failed to run query");
         }
         return $results;

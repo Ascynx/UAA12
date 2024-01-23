@@ -16,12 +16,14 @@
         $template = "Views/accueil.php";
         $title = "Bienvenue";
         require_once("Views/base.php");
-    } else if (isPage($uri, "/testLogin", true, $loggedIn)) {//ces deux pages sont temporaires et seront supprimé quand plus nécessaire.
+    } else if (isPage($uri, "/disconnect", true, $loggedIn)) {
         unset($_SESSION["userId"]);
         unset($_SESSION["userHash"]);
         header("Location:" . "/", TRUE, 303);
-    } else if (isPage($uri, "/testLogin", false, $loggedIn)) {
-        $_SESSION["userId"] = "test";
-        $_SESSION["userHash"] = "unset";
-        header("Location:" . "/", TRUE, 303);
-    }
+    } 
+    
+    //else if (isPage($uri, "/testLogin", false, $loggedIn)) {
+    //    $_SESSION["userId"] = "test";
+    //    $_SESSION["userHash"] = "unset";
+    //    header("Location:" . "/", TRUE, 303);
+    //}

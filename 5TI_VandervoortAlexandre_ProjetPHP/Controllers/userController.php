@@ -25,6 +25,12 @@
 
         if ($username != "" && $pass != "") {
             //db stuff
+            if (!login_user_and_load_into_session($username, $pass)) {
+                $log_err = "Failed to login.";
+            } else {
+                //redirect
+                header("Location:" . "/", TRUE, 303);
+            }
         }
 
         require_once("Views/base.php");
@@ -49,14 +55,11 @@
 
         if ($email != "" && $username != "" && $pass != "") {
            //db stuff
-           if (!create_new_user($email, $username, $pass)) {
+           if (!create_and_load_user_into_session($email, $username, $pass)) {
             $log_err = "Failed to create new user in database";
            } else {
-            //set new session items
-            
-
             //redirect
-            header("Location:" . $_SERVER['HTTP_HOST'] . "/index.php", true, 303);
+            header("Location:" . "/", TRUE, 303);
            }
         }
 

@@ -25,17 +25,6 @@ body {
     margin: 0;
 }
 
-.switch>a {
-    text-decoration: none;
-    text-transform: none;
-    color: inherit;
-}
-
-.switch>a:hover,
-.switch>a:focus {
-    color: rgb(165, 151, 151); 
-}
-
 .form-element {
     padding: 3px;
 }
@@ -94,15 +83,4 @@ input:not(textarea):not([type="submit"]) {
 .form-element>input[type="submit"]:hover,
 .form-element>input[type="submit"]:focus {
     background-color: rgba(77, 72, 72, 0.6);
-}
-
-.img-container {
-    width: 32px;
-    height: 32px;
-    margin-right: 4px;
-    overflow: hidden;
-}
-
-img {
-    width: 100%;
 }

@@ -10,7 +10,7 @@
     <header>
         <?php require_once("Views/Components/nav.php"); ?>
     </header>
-    <main class="<?=$main_style?>">
+    <main class="<?=isset($main_style) ? $main_style : ""?>">
         <?php require_once($template) ?>
     </main>
     <footer>

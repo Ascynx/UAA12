@@ -1,9 +1,21 @@
 body {
     margin: 0;
+    min-height: 100vh;
 }
 
-main {
-    min-height: 100vh;
+img {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    text-transform: none;
+    color: inherit;
+}
+
+a:hover,
+a:focus {
+    color: rgb(165, 151, 151); 
 }
 
 .flex {
@@ -35,4 +47,15 @@ main {
 
 .center-text {
     text-align: center;
+}
+
+.img-container {
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+    overflow: hidden;
+}
+
+.nav {
+    background-color: rgb(68, 67, 67);
 }
