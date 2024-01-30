@@ -33,6 +33,7 @@
             }
         }
 
+        $pageLoaded = true;
         require_once("Views/base.php");
     } else if (isPage($uri, "/signup", false, $loggedIn)) {
         $main_style = "flex column center-content";
@@ -63,5 +64,17 @@
            }
         }
 
+        $pageLoaded = true;
         require_once("Views/base.php");
+    } else if (isPage($uri, "/profil", true, $loggedIn)) {
+        $main_style = "";
+        $template = "Views/Users/profil.php";
+        $title = "Profil";
+
+        $pageLoaded = true;
+        require_once("Views/base.php");
+    } else if (isPage($uri, "/profil", false, $loggedIn)) {
+
+        $pageLoaded = true;
+        require_once("Views/Errors/403.php");
     }

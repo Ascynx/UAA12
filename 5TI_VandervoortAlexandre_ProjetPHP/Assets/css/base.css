@@ -30,6 +30,10 @@ a:focus {
     flex-direction: row;
 }
 
+.space-between {
+    justify-content: space-between;
+}
+
 .center-self {
     align-self: center;
     justify-self: center;

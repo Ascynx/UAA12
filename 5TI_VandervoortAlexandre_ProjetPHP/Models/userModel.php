@@ -202,6 +202,10 @@
         return $results[0]->user_access;
     }
 
+    function getStringAccessFrom(int $userAccessInt): Access {
+        return Access::tryFrom($userAccessInt);
+    }
+
     function loadUser($userId): stdClass {
         $pdo = get_pdo();
         $query = createAllDataUserQuery($userId);
@@ -210,6 +214,10 @@
             return null;
         }
         return $results[0];
+    }
+
+    function genRandomPass(): string {
+
     }
 
     function createTestUser(): array {

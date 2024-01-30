@@ -1,0 +1,23 @@
+.small-img-container {
+    width: 16px;
+    height: 16px;
+    margin: 0px 4px;
+    overflow: hidden;
+}
+
+.left {
+    padding-left: max(50px, 1em);
+}
+
+.interactible, .interactible-disabled {
+    border: solid 1px black;
+    margin: 1px;
+    padding: 0px 15px;
+    background-color: white;
+}
+
+.interactible:hover,
+.interactible:focus {
+    background-color: rgb(200, 200, 200);
+    cursor: pointer;
+}
