@@ -3,7 +3,7 @@
         <?php if ($loggedIn) : ?>
             <div class="flex row">
                 <div class="img-container center-self">
-                    <a href="/disconnect"><img src="Assets/images/user.png" alt="user"></a>
+                    <a href="/profil"><img src="Assets/images/user.png" alt="user"></a>
                 </div>
                 <div class="user">
                     <p><?= $user['user_name'] ?></p>

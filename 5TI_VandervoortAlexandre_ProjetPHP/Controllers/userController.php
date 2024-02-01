@@ -72,6 +72,44 @@
         $title = "Profil";
 
         $pageLoaded = true;
+        $components = get_query_components($uri);
+        if (isset($components['edit'])) {
+            $edit = $components['edit'];
+        } else {
+            $edit = "";
+
+            if (isset($_POST)) {
+                //update name
+                if (isset($_POST['name'])) {
+                    $name = $_POST['name'];
+                    if ($name !== '') {
+                        setUsername($user['user_id'], $name);
+
+                        header("Location:" . "/profil", TRUE, 303);
+                    }
+                }
+                //update email
+                if (isset($_POST['email'])) {
+                    $email = $_POST['email'];
+                    if ($email !== '') {
+                        setEmail($user['user_id'], $email);
+
+                        header("Location:" . "/profil", TRUE, 303);
+                    }
+                }
+                //update password
+                if (isset($_POST['password'])) {
+                    $pass = $_POST['password'];
+                    if ($pass !== '') {
+                        $hash = setPassword($user['user_id'], $pass);
+                        
+                        $_SESSION['userHash'] = $hash;
+                        header("Location:" . "/profil", TRUE, 303);
+                    }
+                }
+            }
+        }
+
         require_once("Views/base.php");
     } else if (isPage($uri, "/profil", false, $loggedIn)) {
 

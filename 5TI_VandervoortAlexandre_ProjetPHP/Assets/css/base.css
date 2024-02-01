@@ -60,6 +60,6 @@ a:focus {
     overflow: hidden;
 }
 
-.nav {
+.nav, .foot {
     background-color: rgb(68, 67, 67);
 }

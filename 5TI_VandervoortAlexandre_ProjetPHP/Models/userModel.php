@@ -164,6 +164,29 @@
         return $results[0]->user_name;
     }
 
+    function setUsername($userId, $newUsername) {
+        $pdo = get_pdo();
+        $query = create_user_update_query("user_name", $newUsername, $userId);
+        run_query($pdo, $query);
+    }
+
+    function setEmail($userId, $newEmail) {
+        $pdo = get_pdo();
+        $query = create_user_update_query("user_email", $newEmail, $userId);
+        run_query($pdo, $query);
+    }
+
+    function setPassword($userId, $newPassword): string {
+        $salt = generate_salt();
+        $hash = hash_pass($newPassword, $salt);
+        $pdo = get_pdo();
+        $hash_query = create_user_update_query("user_salted_hash", $hash, $userId);
+        $salt_query = create_user_update_query("user_salt", $salt, $userId);
+        run_query($pdo, $hash_query);
+        run_query($pdo, $salt_query);
+        return $hash;
+    }
+
     function getUserId(string $username): string | null {
         $pdo = get_pdo();
         $query = create_get_id_using_name_query($username);
@@ -216,10 +239,6 @@
         return $results[0];
     }
 
-    function genRandomPass(): string {
-
-    }
-
     function createTestUser(): array {
         $u = array('userId' => "test", "user_name" => "Ascynx", "user_salt" => "unset", "user_salted_hash" => "unset", "user_access" => 0);
         return $u;
@@ -231,6 +250,10 @@
 
     function create_user_query($column, $userId): string {
         return sprintf("SELECT %s FROM utilisateurs WHERE user_id = %s", $column, $userId);
+    }
+
+    function create_user_update_query($column, $val, $userId): string {
+        return sprintf("UPDATE utilisateurs SET %s='%s' WHERE user_id=%s", $column, $val, $userId);
     }
 
     function create_get_id_using_name_query(string $name): string {
