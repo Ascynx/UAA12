@@ -1,6 +1,10 @@
 body {
     margin: 0;
-    min-height: 100vh;
+    height: 100vh;
+}
+
+main {
+    height: inherit;
 }
 
 img {
@@ -62,4 +66,12 @@ a:focus {
 
 .nav, .foot {
     background-color: rgb(68, 67, 67);
+}
+
+.fill-width {
+    width: 100%;
+}
+
+.half {
+    width: 50%;
 }

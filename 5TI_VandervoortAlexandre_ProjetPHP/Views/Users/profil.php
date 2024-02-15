@@ -83,7 +83,9 @@ require_once("Models/userModel.php");
         </div>
         <div class="flex row space-between">
             <input type="submit" value="Mettre à jour" class="center-self center-content center-items" <?= $edit === "" ? "disabled=\"disabled\"" : "" ?>>
-            <a href="/disconnect"><button>Déconnexion</button></a>
+            <a href="/disconnect">
+                <button type="button">Déconnexion</button>
+            </a>
         </div>
         
     </div>

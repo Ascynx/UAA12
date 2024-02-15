@@ -12,6 +12,18 @@
         $template = "Views/Users/loggedIn.php";
         $title = "Bienvenue " . $user["user_name"];
 
+        $selected = 0;
+        $page = 0;
+
+        $components = get_query_components($uri);
+        var_dump($components);
+        if (isset($components["selected"]) && is_int($components["selected"])) {
+            $selected = $components["selected"];
+        }
+        if (isset($components["page"]) && is_int($components["page"])) {
+            $page = $components["page"];
+        }
+
         $pageLoaded = true;
         require_once("Views/base.php");
     } else if (isPage($uri, "/", false, $loggedIn) || isPage($uri, "/index.php", false, $loggedIn)) {
