@@ -1,5 +1,5 @@
 <?php
-    require_once("Models/sqlFuncModel.php");
+    require_once('Models/sqlFuncModel.php');
 
     enum Access: int {
         case Visiteur = 0;
@@ -10,13 +10,14 @@
     function login_user_and_load_into_session(string $emailName, string $pass): bool {
         if (filter_var($emailName, FILTER_VALIDATE_EMAIL)) {
             //its an email!
-            $query = create_get_id_using_email_query($emailName);
+            $query = create_get_id_using_email_query();
+            $results = run_advanced_query(get_pdo(), $query, ['email' => $emailName]);
         } else {
             //its a name!
-            $query = create_get_id_using_name_query($emailName);
+            $query = create_get_id_using_name_query();
+            $results = run_advanced_query(get_pdo(), $query, ['name' => $emailName]);
         }
-
-        $results = run_query(get_pdo(), $query);
+        
         if (sizeof($results) == 0) {
             return false;
         }
@@ -65,7 +66,7 @@
 
     function generate_salt(): string {
         $size = 30;
-        $salt = "";
+        $salt = '';
         
         for ($i = 0; $i < $size; $i++) {
             $charcode = rand(0, 52);
@@ -94,7 +95,7 @@
             return false;
         }
 
-        if ($userId === "test") {
+        if ($userId === 'test') {
             return true;
         }
 
@@ -112,7 +113,7 @@
             return false;
         }
 
-        if ($userId === "test") {
+        if ($userId === 'test') {
             return createTestUser();
         }
 
@@ -129,25 +130,36 @@
 
     function createNewUser(string $username, string $email, string $hash, string $salt, int $access): bool {
         $pdo = get_pdo();
-        $query = sprintf("INSERT INTO utilisateurs (user_name, user_email, user_salted_hash, user_salt, user_access) VALUES ('%s', '%s', '%s', '%s', '%d');", $username, $email, $hash, $salt, $access);
-        run_query($pdo, $query);
+        $query = "INSERT INTO utilisateurs (user_name, user_email, user_salted_hash, user_salt, user_access) VALUES (:name, :email, :salted_hash, :salt, :access);";
+        run_advanced_query($pdo, $query, [
+            'name'=>$username,
+            'email'=>$email,
+            'salted_hash'=>$hash,
+            'salt'=>$salt,
+            'access'=>$access
+        ]);
         return true;
     }
 
     function getUserSalt($userId): string | null {
         $pdo = get_pdo();
-        $query = create_user_query("user_salt", $userId);
-        $results = run_query($pdo, $query);
+        $query = create_user_query('user_salt');
+        $results = run_advanced_query($pdo, $query, [
+            'id'=>$userId
+        ]);
         if (sizeof($results) == 0) {
             return null;
         }
         return $results[0];
     }
 
+
     function getUserHash($userId): string | null {
         $pdo = get_pdo();
-        $query = create_user_query("user_salted_hash", $userId);
-        $results = run_query($pdo, $query);
+        $query = create_user_query('user_salted_hash');
+        $results = run_advanced_query($pdo, $query, [
+            'id'=>$userId
+        ]);
         if (sizeof($results) == 0) {
             return null;
         }
@@ -156,8 +168,10 @@
 
     function getUserName($userId): string | null {
         $pdo = get_pdo();
-        $query = create_user_query("user_name", $userId);
-        $results = run_query($pdo, $query);
+        $query = create_user_query('user_name');
+        $results = run_advanced_query($pdo, $query, [
+            'id'=>$userId
+        ]);
         if (sizeof($results) == 0) {
             return null;
         }
@@ -166,31 +180,45 @@
 
     function setUsername($userId, $newUsername) {
         $pdo = get_pdo();
-        $query = create_user_update_query("user_name", $newUsername, $userId);
-        run_query($pdo, $query);
+        $query = create_user_update_query('user_name');
+        run_advanced_query($pdo, $query, [
+            'val'=>$newUsername,
+            'id'=>$userId
+        ]);
     }
 
     function setEmail($userId, $newEmail) {
         $pdo = get_pdo();
-        $query = create_user_update_query("user_email", $newEmail, $userId);
-        run_query($pdo, $query);
+        $query = create_user_update_query('user_email');
+        run_advanced_query($pdo, $query, [
+            'val'=>$newEmail,
+            'id'=>$userId
+        ]);
     }
 
     function setPassword($userId, $newPassword): string {
         $salt = generate_salt();
         $hash = hash_pass($newPassword, $salt);
         $pdo = get_pdo();
-        $hash_query = create_user_update_query("user_salted_hash", $hash, $userId);
-        $salt_query = create_user_update_query("user_salt", $salt, $userId);
-        run_query($pdo, $hash_query);
-        run_query($pdo, $salt_query);
+        $hash_query = create_user_update_query('user_salted_hash');
+        $salt_query = create_user_update_query('user_salt');
+        run_advanced_query($pdo, $hash_query, [
+            'val'=>$hash,
+            'id'=>$userId
+        ]);
+        run_advanced_query($pdo, $salt_query, [
+            'val'=>$salt,
+            'id'=>$userId
+        ]);
         return $hash;
     }
 
     function getUserId(string $username): string | null {
         $pdo = get_pdo();
-        $query = create_get_id_using_name_query($username);
-        $results = run_query($pdo, $query);
+        $query = create_get_id_using_name_query();
+        $results = run_advanced_query($pdo, $query, [
+            'name'=>$username
+        ]);
         if (sizeof($results) == 0) {
             return null;
         }
@@ -199,8 +227,10 @@
 
     function getUserEmail($userId): string | null {
         $pdo = get_pdo();
-        $query = create_user_query("user_email", $userId);
-        $results = run_query($pdo, $query);
+        $query = create_user_query('user_email');
+        $results = run_advanced_query($pdo, $query, [
+            'id'=>$userId
+        ]);
         if (sizeof($results) == 0) {
             return null;
         }
@@ -217,8 +247,10 @@
 
     function getUserAccess($userId): int | null {
         $pdo = get_pdo();
-        $query = create_user_query("user_access", $userId);
-        $results = run_query($pdo, $query);
+        $query = create_user_query('user_access');
+        $results = run_advanced_query($pdo, $query, [
+            'id'=>$userId
+        ]);
         if (sizeof($results) == 0) {
             return null;
         }
@@ -231,8 +263,10 @@
 
     function loadUser($userId): stdClass {
         $pdo = get_pdo();
-        $query = createAllDataUserQuery($userId);
-        $results = run_query($pdo, $query);
+        $query = create_all_user_query();
+        $results = run_advanced_query($pdo, $query, [
+            'id'=>$userId
+        ]);
         if (sizeof($results) == 0) {
             return null;
         }
@@ -240,26 +274,26 @@
     }
 
     function createTestUser(): array {
-        $u = array('userId' => "test", "user_name" => "Ascynx", "user_salt" => "unset", "user_salted_hash" => "unset", "user_access" => 0);
+        $u = array('userId' => 'test', 'user_name' => 'Ascynx', 'user_salt' => 'unset', 'user_salted_hash' => 'unset', 'user_access' => 0);
         return $u;
     }
 
-    function createAllDataUserQuery($userId): string {
-        return create_user_query("*", $userId);
+    function create_all_user_query(): string {
+        return "SELECT * FROM utilisateurs WHERE user_id = :id";
     }
 
-    function create_user_query($column, $userId): string {
-        return sprintf("SELECT %s FROM utilisateurs WHERE user_id = %s", $column, $userId);
+    function create_user_query($column): string {
+        return "SELECT " . $column . " FROM utilisateurs WHERE user_id = :id";
     }
 
-    function create_user_update_query($column, $val, $userId): string {
-        return sprintf("UPDATE utilisateurs SET %s='%s' WHERE user_id=%s", $column, $val, $userId);
+    function create_user_update_query(): string {
+        return "UPDATE utilisateurs SET :col=:val WHERE user_id=:id";
     }
 
-    function create_get_id_using_name_query(string $name): string {
-        return sprintf("SELECT user_id FROM utilisateurs WHERE user_name='%s'", $name);
+    function create_get_id_using_name_query(): string {
+        return "SELECT user_id FROM utilisateurs WHERE user_name=:name";
     }
 
-    function create_get_id_using_email_query(string $email): string {
-        return sprintf("SELECT user_id FROM utilisateurs WHERE user_email='%s'", $email);
+    function create_get_id_using_email_query(): string {
+        return "SELECT user_id FROM utilisateurs WHERE user_email=:email";
     }

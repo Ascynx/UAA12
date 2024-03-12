@@ -87,6 +87,11 @@ require_once("Models/userModel.php");
                 <button type="button">Déconnexion</button>
             </a>
         </div>
+        <div class="flex row space-between">
+            <a href="?supprimer=confirmer">
+                <button type="button">Supprimer</button>
+            </a>
+        </div>
         
     </div>
 </div>

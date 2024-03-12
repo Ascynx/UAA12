@@ -46,7 +46,7 @@
             throw new Exception("Failed to prepare query");
         }
 
-        execute_query($prepared_query, $queryables);
+        execute_with($prepared_query, $queryables);
         $results = get_query_response($prepared_query);
         if (!$results && !is_array($results)) {
             throw new Exception("Failed to run query");

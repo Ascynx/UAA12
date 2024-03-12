@@ -40,11 +40,15 @@
                         for ($i = 0; $i < sizeof($pagedElements); $i++) {
                             $element = $pagedElements[$i];
                             $id = $element->pla_id;
-                            $selected = $id == $selected;
+                            $isSelected = $id == $selected;
 
                             $date = $element->pla_date;
-                            $heure_debut = $element->pla_heure;
-                            $heure_fin = $heure_debut + $element->pla_duree;
+                            $timestamp_debut = strtotime($element->pla_heure, 0);
+                            $time = $element->pla_duree * 50;
+                            $timestamp_fin = $timestamp_debut + mktime(floor($time / 60), floor($time % 60), 0, 1, 1, 1970);
+                            
+                            $heure_debut = date("H:i:s", $timestamp_debut);
+                            $heure_fin = date("H:i:s", $timestamp_fin);
 
                             echo("
                                 <tr class=\"selected\">
