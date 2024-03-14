@@ -52,6 +52,14 @@
         return true;
     }
 
+    function delete_and_unload_user(stdClass $user, string $password) {
+        $id = $user->id;
+        $salt = $user->user_salt;
+        if (hash_pass($password, $salt) == $user->user_salted_hash) {
+            //can delete as password is correct
+        }
+    }
+
     function create_new_user(string $email, string $username, string $password): bool {
         $salt = generate_salt();
         $hash = hash_pass($password, $salt);

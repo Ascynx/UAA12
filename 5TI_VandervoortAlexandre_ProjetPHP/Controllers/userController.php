@@ -73,6 +73,10 @@
 
         $pageLoaded = true;
         $components = get_query_components($uri);
+        if (isset($components['supprimer'])) {
+            
+        }
+
         if (isset($components['edit'])) {
             $edit = $components['edit'];
         } else {
