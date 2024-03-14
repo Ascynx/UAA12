@@ -1,0 +1,16 @@
+.selected {
+    background-image: radial-gradient(#3f4140 75%, transparent 16%);
+    background-size: 0.5em 0.5em;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+.clickable {
+    cursor:pointer;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 5em 0.5em;
+    border-radius: 2px;
+}

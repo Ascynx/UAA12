@@ -75,3 +75,7 @@ a:focus {
 .half {
     width: 50%;
 }
+
+.third {
+    width: 33%;
+}

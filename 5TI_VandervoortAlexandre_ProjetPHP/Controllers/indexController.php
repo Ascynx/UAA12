@@ -16,12 +16,11 @@
         $page = 0;
 
         $components = get_query_components($uri);
-        var_dump($components);
-        if (isset($components["selected"]) && is_int($components["selected"])) {
-            $selected = $components["selected"];
+        if (isset($components["selected"]) && filter_var($components["selected"], FILTER_VALIDATE_INT)) {
+            $selected = (int)$components["selected"];
         }
-        if (isset($components["page"]) && is_int($components["page"])) {
-            $page = $components["page"];
+        if (isset($components["page"]) && filter_var($components["page"], FILTER_VALIDATE_INT)) {
+            $page = (int)$components["page"];
         }
 
         $pageLoaded = true;

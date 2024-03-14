@@ -10,6 +10,7 @@
 ?>
 
 <link rel="stylesheet" href="Assets/css/accueil.css">
+<link rel="stylesheet" href="Assets/css/loggedIn.css">
 
 <div class="flex column">
     <div class="blue-bg padded">
@@ -22,8 +23,8 @@
             <div class="title center-text">
                 <h2>Horaire</h2>
             </div>
-            <div class="table">
-                <table>
+            <div class="table flex column">
+                <table class="flex center-self">
                     <tr>
                         <th>
                             Date
@@ -50,8 +51,10 @@
                             $heure_debut = date("H:i:s", $timestamp_debut);
                             $heure_fin = date("H:i:s", $timestamp_fin);
 
+
+                            $selectedAttributes = $isSelected ? "class=\"selected\"" : "class=\"clickable\" onClick=\"window.location.replace('?selected=$id')\"";
                             echo("
-                                <tr class=\"selected\">
+                                <tr $selectedAttributes>
                                     <th>
                                         $date
                                     </th>
@@ -71,6 +74,66 @@
         <div class="participants half flex column">
             <div class="title center-text">
                 <h2>Participants</h2>
+            </div>
+            <div class="table flex column">
+                <table class="flex center-self">
+                    <tr>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Prénom
+                        </th>
+                        <th>
+                            Classe
+                        </th>
+                    </tr>
+                    <?php
+                        if ($selected != 0) {
+                            $etudes = getEtudesFromPlanning($selected);
+
+                            for ($i = 0; $i < sizeof($etudes); $i++) {
+                                $etude = $etudes[$i];
+
+                                $estClasse = $etude->etu_cla_id != NULL;
+
+                                $nom = "";
+                                $prenom = "";
+                                $classe = "";
+
+                                if ($estClasse) {
+                                    $cla = getClasseFromId($etude->etu_cla_id);
+                                    $classe = $cla->cla_annee;
+                                } else {
+                                    if ($etude->etu_ele_id != NULL) {
+                                        $ele = getEleveFromId($etude->etu_ele_id);
+                                        $nom = $ele->ele_nom;
+                                        $prenom = $ele->ele_prenom;
+                                        $classe = getClasseFromId($ele->ele_cla_id)->cla_annee;
+                                    } else {
+                                        $nom = "UNKNOWN";
+                                        $prenom = "UNKNOWN";
+                                        $classe = "UNKNOWN";
+                                    }
+                                    
+                                    echo("
+                                <tr>
+                                    <th>
+                                        $nom
+                                    </th>
+                                    <th>
+                                        $prenom
+                                    </th>
+                                    <th>
+                                        $classe
+                                    </th>
+                                </tr>
+                            ");
+                                }
+                            }
+                        }
+                    ?>
+                </table>
             </div>
         </div>
     </div>
