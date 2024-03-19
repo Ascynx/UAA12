@@ -88,10 +88,12 @@ require_once("Models/userModel.php");
             </a>
         </div>
         <div class="flex row space-between">
-            <a href="?supprimer=confirmer">
+            <a href="" onclick="delAccountPrompt()">
                 <button type="button">Supprimer</button>
             </a>
         </div>
         
     </div>
 </div>
+
+<script src="/Assets/scripts/utils.js"></script>

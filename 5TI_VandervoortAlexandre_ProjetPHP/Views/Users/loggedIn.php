@@ -52,7 +52,7 @@
                             $heure_fin = date("H:i:s", $timestamp_fin);
 
 
-                            $selectedAttributes = $isSelected ? "class=\"selected\"" : "class=\"clickable\" onClick=\"window.location.replace('?selected=$id')\"";
+                            $selectedAttributes = $isSelected ? "class=\"selected\"" : "class=\"clickable\" onClick=\"window.open('?selected=$id', '_self')\"";
                             echo("
                                 <tr $selectedAttributes>
                                     <th>

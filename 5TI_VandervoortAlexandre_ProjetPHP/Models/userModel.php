@@ -52,11 +52,18 @@
         return true;
     }
 
-    function delete_and_unload_user(stdClass $user, string $password) {
-        $id = $user->id;
-        $salt = $user->user_salt;
-        if (hash_pass($password, $salt) == $user->user_salted_hash) {
+    function delete_and_unload_user(array $user, string $password) {
+        $id = $user["user_id"];
+        $salt = $user["user_salt"];
+        if (hash_pass($password, $salt) == $user["user_salted_hash"]) {
             //can delete as password is correct
+
+            if (deleteUser($id)) {
+                unset($_SESSION['userId']);
+                unset($_SESSION['userHash']);
+            } else {
+                throw new Exception('Failed to delete user');
+            }
         }
     }
 
@@ -245,7 +252,7 @@
         return $results[0]->user_email;
     }
 
-    function getStringUserAccess($userId): Access {
+    function getStringUserAccess($userId): Access|null {
         $intAccess = getUserAccess($userId);
         if ($intAccess == null) {
             return null;
@@ -269,7 +276,7 @@
         return Access::tryFrom($userAccessInt);
     }
 
-    function loadUser($userId): stdClass {
+    function loadUser($userId): stdClass|null {
         $pdo = get_pdo();
         $query = create_all_user_query();
         $results = run_advanced_query($pdo, $query, [
@@ -281,6 +288,17 @@
         return $results[0];
     }
 
+    function deleteUser($userId): bool {
+        $pdo = get_pdo();	
+        $query = create_delete_user_query();
+        $results = run_advanced_query($pdo, $query, [
+            'id'=>$userId
+        ]);
+        if (sizeof($results) == 0) {
+            return false;
+        }
+        return true;
+    }
     function createTestUser(): array {
         $u = array('userId' => 'test', 'user_name' => 'Ascynx', 'user_salt' => 'unset', 'user_salted_hash' => 'unset', 'user_access' => 0);
         return $u;
@@ -294,8 +312,12 @@
         return "SELECT " . $column . " FROM utilisateurs WHERE user_id = :id";
     }
 
-    function create_user_update_query(): string {
-        return "UPDATE utilisateurs SET :col=:val WHERE user_id=:id";
+    function create_delete_user_query() : string {
+        return "DELETE FROM utilisateurs WHERE user_id = :id";
+    }
+
+    function create_user_update_query($column): string {
+        return sprintf("UPDATE utilisateurs SET %s=:val WHERE user_id=:id", $column);
     }
 
     function create_get_id_using_name_query(): string {

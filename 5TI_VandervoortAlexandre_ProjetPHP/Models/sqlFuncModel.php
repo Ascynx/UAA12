@@ -26,7 +26,7 @@
         return $executed_query->fetchAll();
     }
 
-    function run_query(PDO $pdo, string $query): array {
+    function run_query(PDO $pdo, string $query): array|Countable {
         $prepared_query = prepare_query($pdo, $query);
         if (!$prepared_query) {
             throw new Exception("Failed to prepare query");
@@ -34,13 +34,13 @@
 
         execute_query($prepared_query);
         $results = get_query_response($prepared_query);
-        if (!$results && !is_array($results)) {
+        if (!$results && !is_array($results) && !is_countable($results)) {
             throw new Exception("Failed to run query");
         }
         return $results;
     }
 
-    function run_advanced_query(PDO $pdo, string $query, array $queryables): array {
+    function run_advanced_query(PDO $pdo, string $query, array $queryables): array|Countable {
         $prepared_query = prepare_query($pdo, $query);
         if (!$prepared_query) {
             throw new Exception("Failed to prepare query");
@@ -48,7 +48,7 @@
 
         execute_with($prepared_query, $queryables);
         $results = get_query_response($prepared_query);
-        if (!$results && !is_array($results)) {
+        if (!$results && !is_array($results) && !is_countable($results)) {
             throw new Exception("Failed to run query");
         }
         return $results;

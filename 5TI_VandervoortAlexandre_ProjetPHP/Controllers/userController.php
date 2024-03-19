@@ -73,10 +73,6 @@
 
         $pageLoaded = true;
         $components = get_query_components($uri);
-        if (isset($components['supprimer'])) {
-            
-        }
-
         if (isset($components['edit'])) {
             $edit = $components['edit'];
         } else {
@@ -119,4 +115,10 @@
 
         $pageLoaded = true;
         require_once("Views/Errors/403.php");
+    } else if (isPage($uri, "/del", true, $loggedIn)) {
+        if (isset($_POST["pass"])) {
+            $pass = $_POST["pass"];
+            delete_and_unload_user($user, $pass);
+        }
+        //header("Location:" . "/", TRUE, 303);
     }
