@@ -17,6 +17,14 @@ const delAccountPrompt = function() {
         let xhr = new XMLHttpRequest()
         xhr.open('POST', "/del", true);
         xhr.send(new FormData(f));
-        window.location.href = "/";
+        window.location.assign("/");
     }
+}
+
+const redirigeApresXSecondes = function(secondes) {
+    window.setTimeout(() => window.location.assign("/"), secondes * 1000);
+}
+
+const redirectTo = function(redirectPath) {
+    window.location.assign(redirectPath);
 }

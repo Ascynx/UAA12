@@ -79,3 +79,7 @@ a:focus {
 .third {
     width: 33%;
 }
+
+.padded-small {
+    padding: 2px;
+}

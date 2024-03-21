@@ -1,16 +1,24 @@
-.selected {
-    background-image: radial-gradient(#3f4140 75%, transparent 16%);
-    background-size: 0.5em 0.5em;
-    background-position: right center;
-    background-repeat: no-repeat;
-}
-
 .clickable {
     cursor:pointer;
 }
 
 table {
-    border-collapse: separate;
-    border-spacing: 5em 0.5em;
-    border-radius: 2px;
+    border-spacing: 0;
+}
+
+td,th {
+    padding: 5px 15px;
+}
+
+tr:not(.table-header):not(.new-element):hover,tr:not(.table-header):not(.new-element):focus, tr.selected {
+    background-color: lightgrey;
+}
+
+.new-element {
+    background-color: aliceblue;
+}
+
+.BEEG_TEXT {
+    font-size: x-large;
+    font-weight: bolder;
 }

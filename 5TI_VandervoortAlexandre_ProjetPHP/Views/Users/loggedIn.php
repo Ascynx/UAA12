@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="Assets/css/accueil.css">
 <link rel="stylesheet" href="Assets/css/loggedIn.css">
+<script src="/Assets/scripts/utils.js"></script>
 
 <div class="flex column">
     <div class="blue-bg padded">
@@ -25,7 +26,7 @@
             </div>
             <div class="table flex column">
                 <table class="flex center-self">
-                    <tr>
+                    <tr class="table-header">
                         <th>
                             Date
                         </th>
@@ -55,19 +56,27 @@
                             $selectedAttributes = $isSelected ? "class=\"selected\"" : "class=\"clickable\" onClick=\"window.open('?selected=$id', '_self')\"";
                             echo("
                                 <tr $selectedAttributes>
-                                    <th>
+                                    <td>
                                         $date
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         $heure_debut
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         $heure_fin
-                                    </th>
+                                    </td>
                                 </tr>
                             ");
                         }
                     ?>
+
+                    <?php if($user["user_access"]> 0): ?>
+                        <tr class="new-element center-text BEEG_TEXT clickable" onclick="redirectTo('/new_planning')">
+                            <td colspan="4">
+                                +
+                            </td>
+                        </tr>
+                    <?php endif?>
                 </table>
             </div>
         </div>
@@ -77,15 +86,18 @@
             </div>
             <div class="table flex column">
                 <table class="flex center-self">
-                    <tr>
+                    <tr class="table-header">
+                        <th>
+                            Raison
+                        </th>
+                        <th>
+                            Classe
+                        </th>
                         <th>
                             Nom
                         </th>
                         <th>
                             Prénom
-                        </th>
-                        <th>
-                            Classe
                         </th>
                     </tr>
                     <?php
@@ -96,6 +108,7 @@
                                 $etude = $etudes[$i];
 
                                 $estClasse = $etude->etu_cla_id != NULL;
+                                $raison = $etude->etu_raison;
 
                                 $nom = "";
                                 $prenom = "";
@@ -115,24 +128,33 @@
                                         $prenom = "UNKNOWN";
                                         $classe = "UNKNOWN";
                                     }
-                                    
-                                    echo("
+                                }
+                                echo("
                                 <tr>
-                                    <th>
-                                        $nom
-                                    </th>
-                                    <th>
-                                        $prenom
-                                    </th>
-                                    <th>
+                                    <td>
+                                        $raison
+                                    </td>
+                                    <td>
                                         $classe
-                                    </th>
+                                    </td>
+                                    <td>
+                                        $nom
+                                    </td>
+                                    <td>
+                                        $prenom
+                                    </td>
                                 </tr>
                             ");
-                                }
                             }
                         }
                     ?>
+                    <?php if($user["user_access"] > 0): ?>
+                        <tr class="new-element center-text BEEG_TEXT clickable" onclick="redirectTo('/new_etude')">
+                            <td colspan="4">
+                                +
+                            </td>
+                        </tr>
+                    <?php endif?>
                 </table>
             </div>
         </div>

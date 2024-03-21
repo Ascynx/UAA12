@@ -1,13 +1,4 @@
 <?php
-    require_once("Models/userModel.php");
-    require_once("Models/pageSortingModel.php");
-
-    $uri = $_SERVER["REQUEST_URI"];
-    $loggedIn = logged_in();
-    if ($loggedIn) {
-        $user = load_user();
-    }
-
     if (isPage($uri, "/signin", false, $loggedIn)) {
         $main_style = "flex column center-content";
         $template = "Views/Users/signIn.php";
@@ -120,5 +111,5 @@
             $pass = $_POST["pass"];
             delete_and_unload_user($user, $pass);
         }
-        //header("Location:" . "/", TRUE, 303);
+        header("Location:" . "/", TRUE, 303);
     }

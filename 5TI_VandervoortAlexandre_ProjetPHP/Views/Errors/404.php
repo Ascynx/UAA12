@@ -5,7 +5,8 @@
     </head>
     <body class="flex column center-items center-content center-text">
         <p class="ERROR_TEXT">
-            Error 404<br>Page not found
+            Error 404
+            Nous n'avons pas trouvé cette page
         </p>
     </body>
     <footer>
