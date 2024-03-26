@@ -58,12 +58,11 @@
         $pageLoaded = true;
         require_once("Views/base.php");
     } else if (isPage($uri, "/profil", true, $loggedIn)) {
-        $main_style = "";
+        $main_style = "flex column center-content";
         $template = "Views/Users/profil.php";
         $title = "Profil";
 
         $pageLoaded = true;
-        $components = get_query_components($uri);
         if (isset($components['edit'])) {
             $edit = $components['edit'];
         } else {

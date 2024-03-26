@@ -10,7 +10,7 @@
         return $results;
     }
 
-    function getEtudesFromId(int $etu_id): stdClass {
+    function getEtudesFromId(int $etu_id): stdClass | null {
         $pdo = get_pdo();
         $query = create_get_etude_from_id();
         $results = run_advanced_query($pdo, $query, [

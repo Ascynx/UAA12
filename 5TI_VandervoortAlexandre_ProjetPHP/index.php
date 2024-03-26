@@ -7,6 +7,7 @@
     $pageLoaded = false;
 
     $uri = $_SERVER["REQUEST_URI"];
+    $components = get_query_components($uri);
     $loggedIn = logged_in();
     if ($loggedIn) {
         $user = load_user();

@@ -148,8 +148,8 @@
                             }
                         }
                     ?>
-                    <?php if($user["user_access"] > 0): ?>
-                        <tr class="new-element center-text BEEG_TEXT clickable" onclick="redirectTo('/new_etude')">
+                    <?php if($user["user_access"] > 0 && $selected != 0): ?>
+                        <tr class="new-element center-text BEEG_TEXT clickable" onclick="redirectTo('/new_etude?planning=<?=$selected?>')">
                             <td colspan="4">
                                 +
                             </td>

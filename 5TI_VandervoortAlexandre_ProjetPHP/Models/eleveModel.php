@@ -1,7 +1,7 @@
 <?php
     require_once("Models/sqlFuncModel.php");
 
-    function getEleveFromId(int $ele_id): stdClass {
+    function getEleveFromId(int $ele_id): stdClass | null {
         $pdo = get_pdo();
         $query = create_get_eleve_from_id();
         $results = run_advanced_query($pdo, $query, [

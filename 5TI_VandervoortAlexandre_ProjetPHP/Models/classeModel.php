@@ -1,7 +1,7 @@
 <?php
     require_once("Models/sqlFuncModel.php");
 
-    function getClasseFromId(int $cla_id): stdClass {
+    function getClasseFromId(int $cla_id): stdClass | null {
         $pdo = get_pdo();
         $query = create_get_classe_from_id();
         $results = run_advanced_query($pdo, $query, [

@@ -6,7 +6,6 @@
         $selected = 0;
         $page = 0;
 
-        $components = get_query_components($uri);
         if (isset($components["selected"]) && filter_var($components["selected"], FILTER_VALIDATE_INT)) {
             $selected = (int)$components["selected"];
         }
