@@ -1,14 +1,30 @@
 <?php
     require_once("Models/sqlFuncModel.php");
 
-    function getAllPlanningsFromTo(int $min, int $max): array {
+    function getAllPlanningsAfterFromTo(int $min, int $max): array {
         $pdo = get_pdo();
-        $query = create_get_from_to_planning_query();
+        $query = create_get_planning_after_query();
         $results = run_advanced_query($pdo, $query, [
-            "min"=>$min,
-            "max"=>$max
+            "date"=>date("Y-m-d", date_create()->getTimestamp())
         ]);
-        return $results;
+        if (sizeof($results) == 0) {
+            return [];
+        }
+        $first = $results[0];
+        $firstId = $first->pla_id;
+
+        $newResults = [];
+        $j = 0;
+        for ($i = $min; $i < $max; $i++) {
+            if (isset($results[$i])) {
+                $newResults[$j] = $results[$i];
+                $j++;
+            } else {
+                break;
+            }
+        }
+
+        return $newResults;
     }
 
     function getPlanningFromId(int $id): stdClass | null {
@@ -23,16 +39,23 @@
         return $results[0];
     }
 
-    function createNewPlanning(string $date, string $debut, string $duree) {
+    function createNewPlanning(string $date, string $debut, string $duree): bool {
         $pdo = get_pdo();
         $query = create_new_planning_query();
-        $results = run_advanced_query($pdo, $query, [
-            
+        run_advanced_query($pdo, $query, [
+            "date"=>$date,
+            "heure"=>$debut,
+            "duree"=>$duree
         ]);
+        return true;
+    }
+
+    function create_get_planning_after_query() {
+        return "SELECT * FROM plannings WHERE pla_date >= :date ORDER BY pla_date ASC";
     }
 
     function create_get_from_to_planning_query() {
-        return sprintf("SELECT * FROM plannings WHERE pla_id >= :min AND pla_id <= :max");
+        return "SELECT * FROM plannings WHERE pla_id >= :min AND pla_id <= :max";
     }
 
     function create_get_planning_query(): string {

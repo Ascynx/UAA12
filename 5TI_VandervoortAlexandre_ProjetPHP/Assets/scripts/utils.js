@@ -28,3 +28,29 @@ const redirigeApresXSecondes = function(secondes) {
 const redirectTo = function(redirectPath) {
     window.location.assign(redirectPath);
 }
+
+const toggleTypeForm = function(val) {
+    const root = document.documentElement;
+    const styles = root.style;
+    styles.setProperty('--visibility-classe', "none");
+    styles.setProperty('--visibility-eleve', "none");
+
+    let enableClass = val == 0 ? "classe" : "eleve";
+    let disableClass = val == 0 ? "eleve" : "classe";
+
+    let visiKey = "--visibility-" + enableClass;
+
+    styles.setProperty(visiKey, "inherit");
+    let els = root.getElementsByClassName(disableClass);
+    for (let i = 0; i < els.length; i++) {
+        let el = els[i];
+        el.value = '';
+        el.required = "";
+    }
+
+    els = root.getElementsByClassName(enableClass);
+    for (let i = 0; i < els.length; i++) {
+        let el = els[i];
+        el.required = "required";
+    }
+}

@@ -1,15 +1,28 @@
+:root {
+    --visibility-classe: inherit;
+    --visibility-eleve: none;
+}
+
 input + span {
     padding-right: 30px;
 }
 
-input:invalid + span::after {
+input:invalid + span.valid::after {
     position: absolute;
     content: "✖";
     padding-left: 5px;
 }
   
-input:valid + span::after {
+input:valid + span.valid::after {
     position: absolute;
     content: "✓";
     padding-left: 5px;
+}
+
+.class-toggle {
+    display: var(--visibility-classe);
+}
+
+.eleve-toggle {
+    display: var(--visibility-eleve);
 }

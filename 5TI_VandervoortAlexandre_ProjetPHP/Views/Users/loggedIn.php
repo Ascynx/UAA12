@@ -38,7 +38,7 @@
                         </th>
                     </tr>
                     <?php
-                        $pagedElements = getAllPlanningsFromTo($min, $max);
+                        $pagedElements = getAllPlanningsAfterFromTo($min, $max);
                         for ($i = 0; $i < sizeof($pagedElements); $i++) {
                             $element = $pagedElements[$i];
                             $id = $element->pla_id;
