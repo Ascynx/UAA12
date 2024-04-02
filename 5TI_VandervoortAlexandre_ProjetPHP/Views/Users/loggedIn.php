@@ -11,7 +11,6 @@
 
 <link rel="stylesheet" href="Assets/css/accueil.css">
 <link rel="stylesheet" href="Assets/css/loggedIn.css">
-<script src="/Assets/scripts/utils.js"></script>
 
 <div class="flex column">
     <div class="blue-bg padded">
@@ -24,7 +23,7 @@
             <div class="title center-text">
                 <h2>Horaire</h2>
             </div>
-            <div class="table flex column">
+            <div class="table flex column scroll-overflow">
                 <table class="flex center-self">
                     <tr class="table-header">
                         <th>
@@ -65,6 +64,8 @@
                                     <td>
                                         $heure_fin
                                     </td>
+                                    <td class=\"basebg\"><span class=\"edit onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/pencil.png\" alt=\"edit\"></span></td>
+                                    <td class=\"basebg\"><span class=\"delete onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/trash-can.png\" alt=\"delete\"></span</td>
                                 </tr>
                             ");
                         }
@@ -72,7 +73,7 @@
 
                     <?php if($user["user_access"]> 0): ?>
                         <tr class="new-element center-text BEEG_TEXT clickable" onclick="redirectTo('/new_planning')">
-                            <td colspan="4">
+                            <td colspan="3">
                                 +
                             </td>
                         </tr>
@@ -84,7 +85,7 @@
             <div class="title center-text">
                 <h2>Participants</h2>
             </div>
-            <div class="table flex column">
+            <div class="table flex column scroll-overflow">
                 <table class="flex center-self">
                     <tr class="table-header">
                         <th>
@@ -143,6 +144,8 @@
                                     <td>
                                         $prenom
                                     </td>
+                                    <td class=\"basebg\"><span class=\"edit onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/pencil.png\" alt=\"edit\"></span></td>
+                                    <td class=\"basebg\"><span class=\"delete onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/trash-can.png\" alt=\"delete\"></span</td>
                                 </tr>
                             ");
                             }
@@ -161,3 +164,6 @@
     </div>
     
 </div>
+
+<script src="/Assets/scripts/utils.js"></script>
+<script src="/Assets/scripts/loggedIn.js"></script>

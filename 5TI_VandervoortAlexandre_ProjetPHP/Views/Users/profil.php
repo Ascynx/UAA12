@@ -4,23 +4,23 @@ require_once("Models/userModel.php");
 
 <link rel="stylesheet" href="Assets/css/profil.css">
 
-<form action = "/profil" method="POST" class="flex column center-items center-content">
+<form action =<?="/profil" . "?editUser=" . $editUser["user_id"]?> method="POST" class="flex column center-items center-content">
     <div>
-        <a <?= $edit !== 'username' ? "href=\"/profil?edit=username\"" : "" ?> class="flex row space-between interactible" id="username">
+        <a <?= $edit !== 'username' ? "href=\"/profil?edit=username&editUser=" . $editUser["user_id"] . "\"" : "" ?> class="flex row space-between interactible" id="username">
             <p>
                 Nom d'utilisateur
             </p>
             <div class="flex row center-items center-content left">
                 <?php if ($edit !== 'username') : ?>
                     <p>
-                        <?= $user["user_name"] ?>
+                        <?= $editUser["user_name"] ?>
                     </p>
                     <div class="small-img-container flex center-content">
                         <img src="Assets/images/pencil.png" alt="Edit">
                     </div>
                 <?php else : ?>
                     <form action="/profil" method="post">
-                        <input type="text" name="name" id="name" placeholder="<?= $user["user_name"] ?>">
+                        <input type="text" name="name" id="name" placeholder="<?= $editUser["user_name"] ?>">
                             <div class="small-img-container flex center-content">
                                 <img src="Assets/images/pencil.png" alt="Edit">
                             </div>
@@ -29,27 +29,27 @@ require_once("Models/userModel.php");
             </div>
         </a>
 
-        <a <?= $edit !== 'useremail' ? "href=\"/profil?edit=useremail\"" : "" ?> class="flex row space-between interactible" id="useremail">
+        <a <?= $edit !== 'useremail' ? "href=\"/profil?edit=useremail&editUser=" . $editUser["user_id"] . "\"" : "" ?> class="flex row space-between interactible" id="useremail">
             <p>
                 Email
             </p>
             <div class="flex row center-items center-content left">
                 <?php if ($edit !== 'useremail') : ?>
                     <p>
-                        <?= $user["user_email"] ?>
+                        <?= $editUser["user_email"] ?>
                     </p>
                     <div class="small-img-container flex center-content">
                         <img src="Assets/images/pencil.png" alt="Edit">
                     </div>
                 <?php else : ?>
-                    <input type="email" name="email" id="email" placeholder="<?= $user["user_email"] ?>">
+                    <input type="email" name="email" id="email" placeholder="<?= $editUser["user_email"] ?>">
                     <div class="small-img-container flex center-content">
                         <img src="Assets/images/pencil.png" alt="Edit">
                     </div>
                 <?php endif ?>
             </div>
         </a>
-        <a <?= $edit !== 'password' ? "href=\"/profil?edit=password\"" : "" ?> class="flex row space-between interactible" id="userpassword">
+        <a <?= $edit !== 'password' ? "href=\"/profil?edit=password&editUser=" . $editUser["user_id"] . "\"" : "" ?> class="flex row space-between interactible" id="userpassword">
             <p>
                 Password
             </p>
@@ -77,7 +77,7 @@ require_once("Models/userModel.php");
             </p>
             <div class="flex row center-items center-content">
                 <p>
-                    <?= getStringAccessFrom($user["user_access"])->name ?>
+                    <?= getStringAccessFrom($editUser["user_access"])->name ?>
                 </p>
             </div>
         </div>

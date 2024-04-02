@@ -16,14 +16,24 @@ if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && i
 
     if (isset($_POST["raison"])) {
         $type = $_POST["type"];
+        $id;
         $raison = $_POST["raison"];
         if ($type=="classe") {
-            $class_name = $_POST["class-name"];
-        
+            $classe_name = $_POST["class-name"];
+            $cla = findClasseFromName($classe_name);
+            $id = $cla == null ? 0 : $cla->cla_id;
+
+
         } else if ($type=="eleve") {
             $eleve_name = $_POST["eleve-name"];
             $eleve_firstname = $_POST["eleve-firstname"];
-        
+            $ele = getEleveFromName($eleve_name, $eleve_firstname);
+            $id = $ele == null ? 0 : $ele->ele_id;
+        }
+
+        if ($id != 0) {
+            createEtude($id, $type, $raison, $planningId);
+            echo('<script>alert("Créé nouvelle entrée")</script>');
         }
     }
 

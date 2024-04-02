@@ -22,3 +22,16 @@ tr:not(.table-header):not(.new-element):hover,tr:not(.table-header):not(.new-ele
     font-size: x-large;
     font-weight: bolder;
 }
+
+.onlySeenOnHover {
+    display: none;
+}
+
+*:hover>.onlySeenOnHover,
+*:focus>.onlySeenOnHover {
+    display: inherit;
+}
+
+.basebg {
+    background-color: gray;
+}

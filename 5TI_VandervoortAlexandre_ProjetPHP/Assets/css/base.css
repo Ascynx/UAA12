@@ -64,6 +64,19 @@ a:focus {
     overflow: hidden;
 }
 
+.small-img-container {
+    width: 16px;
+    height: 16px;
+    margin-right: 2px;
+    overflow: hidden;
+}
+
+.smaller-img-container {
+    width: 12px;
+    height: 12px;
+    overflow: hidden;
+}
+
 .nav, .foot {
     background-color: rgb(68, 67, 67);
 }
