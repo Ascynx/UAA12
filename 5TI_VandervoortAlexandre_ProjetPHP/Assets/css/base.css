@@ -96,3 +96,7 @@ a:focus {
 .padded-small {
     padding: 2px;
 }
+
+.inherit-display {
+    display: inherit;
+}

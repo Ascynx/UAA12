@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="Assets/css/newEntries.css">
 <div class="flex column center-items center-content">
     <div class="flex column center-items">
-        <form action="/editPlanning?planning=<?=$components["planning"]?>" method="post" class="flex column center-items center-content">
+        <form action="/edit_planning?s=<?=$id?>" method="post" class="flex column center-items center-content">
         <div>    
             <label for="date">Date</label>
             <input type="date" name="date" id="date" min="<?=$datemin_str?>" max="<?=$datemax_str?>" required <?=isset($_POST["date"]) ? 'value="' . $_POST["date"] . '"' : ''?>/>

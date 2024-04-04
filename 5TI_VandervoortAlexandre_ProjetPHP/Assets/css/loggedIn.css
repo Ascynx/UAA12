@@ -10,7 +10,9 @@ td,th {
     padding: 5px 15px;
 }
 
-tr:not(.table-header):not(.new-element):hover,tr:not(.table-header):not(.new-element):focus, tr.selected {
+tr:not(.table-header):not(.new-element):hover,
+tr:not(.table-header):not(.new-element):focus,
+tr.selected {
     background-color: lightgrey;
 }
 
@@ -23,15 +25,11 @@ tr:not(.table-header):not(.new-element):hover,tr:not(.table-header):not(.new-ele
     font-weight: bolder;
 }
 
-.onlySeenOnHover {
+:not(.selected):not(:focus):not(:hover)>.highlightOnHover {
     display: none;
 }
 
-*:hover>.onlySeenOnHover,
-*:focus>.onlySeenOnHover {
-    display: inherit;
-}
-
-.basebg {
-    background-color: gray;
+.highlightOnHover:hover,
+.highlightOnHover:hover {
+    background-color:burlywood;
 }

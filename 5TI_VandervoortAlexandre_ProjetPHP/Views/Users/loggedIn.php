@@ -64,8 +64,16 @@
                                     <td>
                                         $heure_fin
                                     </td>
-                                    <td class=\"basebg\"><span class=\"edit onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/pencil.png\" alt=\"edit\"></span></td>
-                                    <td class=\"basebg\"><span class=\"delete onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/trash-can.png\" alt=\"delete\"></span</td>
+                                    <td class=\"highlightOnHover clickable\">
+                                        <span class=\"edit smaller-img-container inherit-display\" onclick=\"redirectTo('/edit_planning?s=$id')\">
+                                            <img src=\"/Assets/images/pencil.png\" alt=\"edit\">
+                                        </span>
+                                    </td>
+                                    <td class=\"highlightOnHover clickable\">
+                                        <span class=\"delete smaller-img-container inherit-display\" onclick=\"redirectTo('/delete_planning?s=$id')\">
+                                            <img src=\"/Assets/images/trash-can.png\" alt=\"delete\">
+                                        </span>
+                                    </td>
                                 </tr>
                             ");
                         }
@@ -107,6 +115,7 @@
 
                             for ($i = 0; $i < sizeof($etudes); $i++) {
                                 $etude = $etudes[$i];
+                                $id = $etude->etu_id;
 
                                 $estClasse = $etude->etu_cla_id != NULL;
                                 $raison = $etude->etu_raison;
@@ -144,8 +153,16 @@
                                     <td>
                                         $prenom
                                     </td>
-                                    <td class=\"basebg\"><span class=\"edit onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/pencil.png\" alt=\"edit\"></span></td>
-                                    <td class=\"basebg\"><span class=\"delete onlySeenOnHover smaller-img-container\"><img src=\"/Assets/images/trash-can.png\" alt=\"delete\"></span</td>
+                                    <td class=\"highlightOnHover clickable\">
+                                        <span class=\"edit smaller-img-container inherit-display\" onclick=\"redirectTo('/edit_etude?s=$id')\">
+                                            <img src=\"/Assets/images/pencil.png\" alt=\"edit\">
+                                        </span>
+                                    </td>
+                                    <td class=\"highlightOnHover clickable\">
+                                        <span class=\"delete smaller-img-container inherit-display\" onclick=\"redirectTo('/delete_etude?s=$id')\">
+                                            <img src=\"/Assets/images/trash-can.png\" alt=\"delete\">
+                                        </span>
+                                    </td>
                                 </tr>
                             ");
                             }
