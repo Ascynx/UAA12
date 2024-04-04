@@ -1,5 +1,5 @@
 <?php
-    $sql_address = "10.10.51.98";
+    $sql_address = "[REDACTED]";
     $sql_username = "alexandre";
     $sql_password = "root";
     
