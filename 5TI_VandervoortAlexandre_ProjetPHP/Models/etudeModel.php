@@ -45,10 +45,10 @@
         $edit_sub = $sub_id != 0;
         if ($edit_raison) {
             $query = create_etude_update_query("etu_raison");
-            echo(run_advanced_query($pdo, $query, [
+            run_advanced_query($pdo, $query, [
                 "val" => $raison,
                 "id" => $id
-            ]));
+            ]);
         }
 
         if ($edit_sub) {

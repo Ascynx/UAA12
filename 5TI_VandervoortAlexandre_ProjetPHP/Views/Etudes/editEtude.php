@@ -1,27 +1,3 @@
-<?php
-    $etu = getEtudeFromId($id);
-
-    $type = $etu->etu_cla_id == null ? "eleve" : "classe";
-    $raison = $etu->etu_raison;
-
-    $classe_name = "";
-    $eleve_firstname = "";
-    $eleve_name = "";
-
-    if ($type == "eleve") {
-        $eleve_id = $etu->etu_ele_id;
-        $ele = getEleveFromid($eleve_id);
-
-        $eleve_name = $ele->ele_nom;
-        $eleve_firstname = $ele->ele_prenom;
-    } else if ($type == "classe") {
-        $classe_id = $etu->etu_cla_id;
-        $cla = getClasseFromId($classe_id);
-    
-        $classe_name = $cla->cla_annee;
-    }
-?>
-
 <link rel="stylesheet" href="Assets/css/newEntries.css">
 
 <div class="flex column center-items center-content">

@@ -51,7 +51,7 @@ if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && i
         $debut_time = strtotime($debut, 0);
         if ($debut_time > 30_300 || $debut_time < 58_500) {
             //heure est correct (entre en 8:25 et 16:15).
-            createNewPlanning($date, $debut, (int) $duree);
+            createNewPlanning($date, $debut, $duree);
             echo('<script>alert("Créé nouvelle entrée commençant à '. $debut . ' d\'une durée de '. $duree . ' périodes")</script>');
         }
     }
@@ -59,9 +59,34 @@ if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && i
     require_once("Views/base.php");
 } else if (isPage($uri, "/edit_planning", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
+    $pla = getPlanningFromId($id);
 
-    if (isset($_POST["raison"])) {
-        
+    $date = $pla->pla_date;
+    $debut = $pla->pla_heure;
+    $duree = $pla->pla_duree;
+
+    $datemin = date_create($date);
+    $datemax = clone $datemin;
+    $datemax = $datemax->add(DateInterval::createFromDateString("1 year"));
+
+    $datemin_str = $datemin->format("Y-m-d");
+    $datemax_str = $datemax->format("Y-m-d");
+
+    if (isset($_POST["date"])) {
+        //creation d'une nouvelle entrée
+        $p_date = $_POST["date"];
+        $p_debut = $_POST["debut"];
+        $p_duree = $_POST["duree"];
+
+        $p_debut_time = strtotime($p_debut, 0);
+        if ($p_debut_time > 30_300 || $p_debut_time < 58_500) {
+            //heure est correct (entre en 8:25 et 16:15).
+            if (!($date == $p_date && $debut == $p_debut && $duree == $p_duree)) {
+                //il y a au moins 1 changement
+                editPlanning($id, $p_date == $date ? $p_date : "", $p_debut == $debut ? $p_debut : "", $p_duree == $duree ? $p_duree : "");
+                header("Location:" . "/", TRUE, 303);
+            }
+        }
     }
 
     $template = "Views/Etudes/editPlanning.php";
@@ -72,7 +97,7 @@ if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && i
     require_once("Views/base.php");
 } else if (isPage($uri, "/delete_planning", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
-} else if (isPage($uri, "/edit_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {//TODO fix tout ça
+} else if (isPage($uri, "/edit_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
     $etu = getEtudeFromId($id);
 
@@ -112,9 +137,12 @@ if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && i
         }
 
         if ($sub_id != 0) {
-            //edit
-            editEtude($id, $sub_id == $s_id ? $sub_id : "", $type, $newtype, $raison_p == $raison ? $raison_p : "");
-            echo('<script>alert("Modifié entrée")</script>');
+            if (!($raison_p == $raison && ($sub_id == $s_id && $type == $newtype))) {
+                //edit
+                editEtude($id, $sub_id != $s_id ? $sub_id : 0, $type, $newtype, $raison_p != $raison ? $raison_p : "");
+                header("Location:" . "/", TRUE, 303);
+            }
+            
         } 
     }
 
