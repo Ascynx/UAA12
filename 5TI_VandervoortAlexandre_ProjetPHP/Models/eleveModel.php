@@ -1,6 +1,28 @@
 <?php
     require_once("Models/sqlFuncModel.php");
 
+    function getAllElevesFromTo(int $min, int $max): array {
+        $pdo = get_pdo();
+        $query = create_get_all_eleves();
+        $results = run_advanced_query($pdo, $query, []);
+        if (sizeof($results) == 0) {
+            return [];
+        }
+
+        $newResults = [];
+        $j = 0;
+        for ($i = $min; $i < $max; $i++) {
+            if (isset($results[$i])) {
+                $newResults[$j] = $results[$i];
+                $j++;
+            } else {
+                break;
+            }
+        }
+
+        return $newResults;
+    }
+
     function getEleveFromId(int $ele_id): stdClass | null {
         $pdo = get_pdo();
         $query = create_get_eleve_from_id();
@@ -32,4 +54,8 @@
 
     function create_get_eleve_from_name(): string {
         return "SELECT * FROM eleves WHERE ele_nom=:name AND ele_prenom=:firstname ORDER BY ele_cla_id DESC";
+    }
+
+    function create_get_all_eleves(): string {
+        return "SELECT eleves.ele_id, eleves.ele_nom, eleves.ele_prenom, classes.cla_annee FROM eleves INNER JOIN classes ON eleves.ele_cla_id=classes.cla_id";
     }

@@ -1,6 +1,28 @@
 <?php
     require_once("Models/sqlFuncModel.php");
 
+    function getAllClassesFromTo(int $min, int $max): array {
+        $pdo = get_pdo();
+        $query = create_get_all_classes();
+        $results = run_advanced_query($pdo, $query, []);
+        if (sizeof($results) == 0) {
+            return [];
+        }
+
+        $newResults = [];
+        $j = 0;
+        for ($i = $min; $i < $max; $i++) {
+            if (isset($results[$i])) {
+                $newResults[$j] = $results[$i];
+                $j++;
+            } else {
+                break;
+            }
+        }
+
+        return $newResults;
+    }
+
     function getClasseFromId(int $cla_id): stdClass | null {
         $pdo = get_pdo();
         $query = create_get_classe_from_id();
@@ -23,6 +45,10 @@
             return null;
         }
         return $results[0];
+    }
+
+    function create_get_all_classes(): string {
+        return "SELECT * FROM classes";
     }
 
     function create_get_classe_from_id(): string {

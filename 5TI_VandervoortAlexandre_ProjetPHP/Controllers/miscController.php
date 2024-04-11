@@ -4,7 +4,39 @@ require_once("Models/etudeModel.php");
 require_once("Models/eleveModel.php");
 require_once("Models/classeModel.php");
 
-if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["planning"])) {
+if (isPage($uri, "eleves", false, $loggedIn)) {
+    $template = "Views/Eleves/eleves.php";
+    $title = "E";
+
+    $selected = 0;
+    $page = 0;
+
+    if (isset($components["selected"]) && filter_var($components["selected"], FILTER_VALIDATE_INT)) {
+       $selected = (int)$components["selected"];
+    }
+    if (isset($components["page"]) && filter_var($components["page"], FILTER_VALIDATE_INT)) {
+        $page = (int)$components["page"];
+    }
+
+    $pageLoaded = true;
+    require_once("Views/base.php");
+} else if (isPage($uri, "/classes", false, $loggedIn)) {
+    $template = "Views/Classes/classes.php";
+    $title = "E";
+
+    $selected = 0;
+    $page = 0;
+
+    if (isset($components["selected"]) && filter_var($components["selected"], FILTER_VALIDATE_INT)) {
+       $selected = (int)$components["selected"];
+    }
+    if (isset($components["page"]) && filter_var($components["page"], FILTER_VALIDATE_INT)) {
+        $page = (int)$components["page"];
+    }
+
+    $pageLoaded = true;
+    require_once("Views/base.php");
+} else if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["planning"])) {
     $template = "Views/Etudes/newEtude.php";
     $title = "Ajout d'un participant.";
     $main_style = "flex column center-content";
