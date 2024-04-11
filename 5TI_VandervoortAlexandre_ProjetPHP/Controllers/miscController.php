@@ -97,6 +97,9 @@ if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && i
     require_once("Views/base.php");
 } else if (isPage($uri, "/delete_planning", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
+
+    deletePlanning($id);
+    header("Location:" . "/", TRUE, 303);
 } else if (isPage($uri, "/edit_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
     $etu = getEtudeFromId($id);
@@ -154,4 +157,7 @@ if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && i
     require_once("Views/base.php");
 } else if (isPage($uri, "/delete_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
+
+    deleteEtude($id);
+    header("Location:"."/", TRUE, 303);
 }

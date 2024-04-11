@@ -72,9 +72,19 @@
             $vals["pla_duree_val"] = $duree;
         }
 
-        $query = test($cols);
+        $query = create_multi_value_planning_update_query($cols);
 
         var_dump(run_advanced_query($pdo, $query, $vals));
+        return true;
+    }
+
+    function deletePlanning(int $id): bool {
+        $pdo = get_pdo();
+
+        $query = create_planning_delete_query();
+        run_advanced_query($pdo, $query, [
+            "id"=>$id
+        ]);
         return true;
     }
 
@@ -94,7 +104,11 @@
         return "INSERT INTO plannings (pla_date, pla_heure, pla_duree) VALUES (:date, :heure, :duree)";
     }
 
-    function test(array $columns) {
+    function create_planning_delete_query(): string {
+        return "DELETE FROM plannings WHERE pla_id=:id";
+    }
+
+    function create_multi_value_planning_update_query(array $columns) {
         $test = "UPDATE plannings SET";
         for ($i = 0; $i < sizeof($columns); $i++) {
             //donc si column = pla_date alors la clé est pla_date_val

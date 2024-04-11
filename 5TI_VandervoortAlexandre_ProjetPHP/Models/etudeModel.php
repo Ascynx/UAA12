@@ -38,6 +38,15 @@
         return true;
     }
 
+    function deleteEtude(int $id) {
+        $pdo = get_pdo();
+        $delQuery = create_etude_delete_query();
+        run_advanced_query($pdo, $delQuery, [
+            "id"=>$id
+        ]);
+        return true;
+    }
+
     function editEtude(int $id, int $sub_id, string $oldtype, string $type, string $raison) {
         $pdo = get_pdo();
 
@@ -97,4 +106,8 @@
 
     function create_etude_double_update_query($column1, $column2): string {
         return sprintf("UPDATE etudes SET %s=:val1 %s=:val2 WHERE etu_id=:id", $column1, $column2);
+    }
+
+    function create_etude_delete_query(): string {
+        return "DELETE FROM etudes WHERE etu_id=:id";
     }
