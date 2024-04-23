@@ -72,9 +72,9 @@
             $vals["pla_duree_val"] = $duree;
         }
 
+        $vals["id"] = $id;
         $query = create_multi_value_planning_update_query($cols);
-
-        var_dump(run_advanced_query($pdo, $query, $vals));
+        run_advanced_query($pdo, $query, $vals);
         return true;
     }
 

@@ -36,7 +36,9 @@ if (isPage($uri, "eleves", false, $loggedIn)) {
 
     $pageLoaded = true;
     require_once("Views/base.php");
-} else if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["planning"])) {
+}
+
+else if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["planning"])) {
     $template = "Views/Etudes/newEtude.php";
     $title = "Ajout d'un participant.";
     $main_style = "flex column center-content";
@@ -89,7 +91,9 @@ if (isPage($uri, "eleves", false, $loggedIn)) {
     }
     $pageLoaded = true;
     require_once("Views/base.php");
-} else if (isPage($uri, "/edit_planning", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
+}
+
+else if (isPage($uri, "/edit_planning", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
     $pla = getPlanningFromId($id);
 
@@ -132,7 +136,9 @@ if (isPage($uri, "eleves", false, $loggedIn)) {
 
     deletePlanning($id);
     header("Location:" . "/", TRUE, 303);
-} else if (isPage($uri, "/edit_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
+}
+
+else if (isPage($uri, "/edit_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
     $etu = getEtudeFromId($id);
 
@@ -177,7 +183,6 @@ if (isPage($uri, "eleves", false, $loggedIn)) {
                 editEtude($id, $sub_id != $s_id ? $sub_id : 0, $type, $newtype, $raison_p != $raison ? $raison_p : "");
                 header("Location:" . "/", TRUE, 303);
             }
-            
         } 
     }
 
@@ -192,4 +197,119 @@ if (isPage($uri, "eleves", false, $loggedIn)) {
 
     deleteEtude($id);
     header("Location:"."/", TRUE, 303);
+}
+
+else if (isPage($uri, "edit_eleve", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
+    $id = $components["s"];
+    $ele = getEleveFromId($id, true);
+
+    $ele_nom = $ele->ele_nom;
+    $ele_prenom = $ele->ele_prenom;
+    $ele_cla_id = $ele->ele_cla_id;
+
+    $ele_cla_name = $ele->cla_annee;
+
+    if (isset($_POST["nom"])) {
+        $new_nom = $_POST["nom"];
+        $new_prenom;
+        $new_classe;
+
+        if (isset($_POST["prenom"])) {
+            $new_prenom = $_POST["prenom"];
+        }
+        if (isset($_POST["classe"])) {
+            $new_classe = $_POST["classe"];
+        }
+
+        $edited = false;
+        if ($new_nom != $ele_nom) {
+            //nom changé
+            $edited = true;
+        } else {
+            $new_nom = "";
+        }
+
+        if ($new_prenom != $ele_prenom) {
+            //prénom changé
+            $edited = true;
+        } else {
+            $new_prenom = "";
+        }
+
+        $cla = 0;
+        if ($new_classe != $ele_cla_name) {
+            //classe changée
+            $cla = findClasseFromName($new_classe);
+            $sub_id = $cla == null ? 0 : $cla->cla_id;
+            $edited = true;
+        } else {
+            $new_classe = "";
+        }
+
+        if ($edited) {
+            editEleve($id, $new_nom, $new_prenom, $cla);
+        }
+    }
+
+    $template = "Views/Eleves/editEleve.php";
+    $title = "Mettre à jour élève";
+    $main_style = "flex column center-content";
+
+    $pageLoaded = true;
+    require_once("Views/base.php");
+} else if (isPage($uri, "new_eleve", true, $loggedIn) && $user["user_access"] > 0) {
+    $template = "Views/Eleves/newEleve.php";
+    $title = "Nouvel élève";
+    $main_style = "flex column center-content";
+
+    if (isset($_POST["nom"])) {
+        $new_nom = $_POST["nom"];
+        $new_prenom = $_POST["prenom"];
+        $new_classe = $_POST["classe"];
+
+        $cla = findClasseFromName($new_classe);
+        $sub_id = $cla == null ? 0 : $cla->cla_id;
+
+        if ($cla != null) {
+            newEleve($new_nom, $new_prenom, $sub_id);
+        }
+    }
+
+    $pageLoaded = true;
+    require_once("Views/base.php");
+} else if (isPage($uri, "delete_eleve", true, $loggedIn) && $user["user_access"] > 0  && isset($components["s"]) ) {
+    $id = $components["s"];
+    $cla = getEleveFromId($id);
+
+    deleteEleve($id);
+    header("Location: ". "/eleves", TRUE, 303);
+} 
+
+else if (isPage($uri, "edit_classe", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
+    $id = $components["s"];
+    $cla = getClasseFromId($id);
+
+    $cla_annee_scolaire = $cla->cla_annee_scolaire;
+    $cla_annee = $cla->cla_annee;
+
+    //TODO logique
+
+    $template = "Views/Classes/editClasse.php";
+    $title = "Mettre à jour classe";
+    $main_style = "flex column center-content";
+
+    $pageLoaded = true;
+    require_once("Views/base.php");
+} else if (isPage($uri, "new_classe", true, $loggedIn) && $user["user_access"] > 0) {
+    $template = "Views/Classes/newClasse.php";
+    $title = "Nouvelle classe";
+    $main_style = "flex column center-content";
+
+    //TODO logique
+
+    $pageLoaded = true;
+    require_once("Views/base.php");
+} else if (isPage($uri, "delete_classe", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
+    $id = $components["s"];
+    $ele = getClasseFromId($id);
 }
