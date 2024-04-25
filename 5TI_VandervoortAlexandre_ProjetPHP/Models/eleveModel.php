@@ -46,6 +46,10 @@
             $vals["ele_cla_id_val"] = $classe_id;
         }
 
+        if (!isset($cols[0])) {
+            return false;
+        }
+
         $vals["id"] = $id;
         $query = create_multi_value_eleve_update_query($cols);
         run_advanced_query($pdo, $query, $vals);
@@ -130,7 +134,7 @@
         $test = "UPDATE eleves SET";
         for ($i = 0; $i < sizeof($columns); $i++) {
             //donc si column = pla_date alors la clé est pla_date_val
-            $test = $test . " " . $columns[$i] . "=:" . $columns[$i] . "_val"; 
+            $test = $test . " " . $columns[$i] . "= :" . $columns[$i] . "_val"; 
         }
         return $test . " WHERE ele_id=:id";
     }

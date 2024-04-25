@@ -239,8 +239,8 @@ else if (isPage($uri, "edit_eleve", true, $loggedIn) && $user["user_access"] > 0
         $cla = 0;
         if ($new_classe != $ele_cla_name) {
             //classe changée
-            $cla = findClasseFromName($new_classe);
-            $sub_id = $cla == null ? 0 : $cla->cla_id;
+            $cla_ = findClasseFromName($new_classe);
+            $cla = $cla_ == null ? 0 : $cla_->cla_id;
             $edited = true;
         } else {
             $new_classe = "";
@@ -248,6 +248,7 @@ else if (isPage($uri, "edit_eleve", true, $loggedIn) && $user["user_access"] > 0
 
         if ($edited) {
             editEleve($id, $new_nom, $new_prenom, $cla);
+            header("Location: ". "/eleves", TRUE, 303);
         }
     }
 
@@ -292,7 +293,21 @@ else if (isPage($uri, "edit_classe", true, $loggedIn) && $user["user_access"] > 
     $cla_annee_scolaire = $cla->cla_annee_scolaire;
     $cla_annee = $cla->cla_annee;
 
-    //TODO logique
+    if (isset($_POST["annee_scolaire"])) {
+        $new_annee_scolaire = $_POST["annee_scolaire"];
+        $new_annee = $_POST["annee"];
+
+        if ($new_annee_scolaire != $cla_annee_scolaire || $new_annee != $cla_annee) {
+            $new_annee_scolaire = $new_annee_scolaire != $cla_annee_scolaire ? $new_annee_scolaire : "";
+            $new_annee = $new_annee != $cla_annee ? $new_annee : "";
+
+            if ($new_annee != "" || $new_annee_scolaire != "") {
+                editClasse($id, $new_annee_scolaire, $new_annee);
+                header("Location: ". "/classes", TRUE, 303);
+            }
+            
+        }
+    }
 
     $template = "Views/Classes/editClasse.php";
     $title = "Mettre à jour classe";
@@ -305,11 +320,18 @@ else if (isPage($uri, "edit_classe", true, $loggedIn) && $user["user_access"] > 
     $title = "Nouvelle classe";
     $main_style = "flex column center-content";
 
-    //TODO logique
+    if (isset($_POST["annee_scolaire"])) {
+        $new_annee_scolaire = $_POST["annee_scolaire"];
+        $new_annee = $_POST["annee"];
+
+        newClasse($new_annee_scolaire, $new_annee);
+    }
 
     $pageLoaded = true;
     require_once("Views/base.php");
 } else if (isPage($uri, "delete_classe", true, $loggedIn) && $user["user_access"] > 0 && isset($components["s"])) {
     $id = $components["s"];
-    $ele = getClasseFromId($id);
+    $cla = getClasseFromId($id);
+
+    header("Location: ". "/classes", TRUE, 303);
 }
