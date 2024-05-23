@@ -6,7 +6,8 @@ require_once("Models/classeModel.php");
 
 if (isPage($uri, "eleves", false, $loggedIn)) {
     $template = "Views/Eleves/eleves.php";
-    $title = "E";
+    $title = "Eleves";
+    $main_style = "flex column center-content gray-bg";
 
     $selected = 0;
     $page = 0;
@@ -22,7 +23,8 @@ if (isPage($uri, "eleves", false, $loggedIn)) {
     require_once("Views/base.php");
 } else if (isPage($uri, "/classes", false, $loggedIn)) {
     $template = "Views/Classes/classes.php";
-    $title = "E";
+    $title = "Classes";
+    $main_style = "flex column center-content gray-bg";
 
     $selected = 0;
     $page = 0;
@@ -41,7 +43,7 @@ if (isPage($uri, "eleves", false, $loggedIn)) {
 else if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0 && isset($components["planning"])) {
     $template = "Views/Etudes/newEtude.php";
     $title = "Ajout d'un participant.";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     $planningId = (int) $components["planning"];
     if (getPlanningFromId($planningId) == null) {
@@ -74,7 +76,7 @@ else if (isPage($uri, "/new_etude", true, $loggedIn) && $user["user_access"] > 0
 } else if (isPage($uri, "/new_planning", true, $loggedIn) && $user["user_access"] > 0) {
     $template = "Views/Etudes/newPlanning.php";
     $title = "Ajout d'une heure d'étude.";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     if (isset($_POST["date"])) {
         //creation d'une nouvelle entrée
@@ -127,7 +129,7 @@ else if (isPage($uri, "/edit_planning", true, $loggedIn) && $user["user_access"]
 
     $template = "Views/Etudes/editPlanning.php";
     $title = "Edition d'une heure d'étude.";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     $pageLoaded = true;
     require_once("Views/base.php");
@@ -188,7 +190,7 @@ else if (isPage($uri, "/edit_etude", true, $loggedIn) && $user["user_access"] > 
 
     $template = "Views/Etudes/editEtude.php";
     $title = "Edition d'un participant'.";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     $pageLoaded = true;
     require_once("Views/base.php");
@@ -254,14 +256,14 @@ else if (isPage($uri, "edit_eleve", true, $loggedIn) && $user["user_access"] > 0
 
     $template = "Views/Eleves/editEleve.php";
     $title = "Mettre à jour élève";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     $pageLoaded = true;
     require_once("Views/base.php");
 } else if (isPage($uri, "new_eleve", true, $loggedIn) && $user["user_access"] > 0) {
     $template = "Views/Eleves/newEleve.php";
     $title = "Nouvel élève";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     if (isset($_POST["nom"])) {
         $new_nom = $_POST["nom"];
@@ -311,14 +313,14 @@ else if (isPage($uri, "edit_classe", true, $loggedIn) && $user["user_access"] > 
 
     $template = "Views/Classes/editClasse.php";
     $title = "Mettre à jour classe";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     $pageLoaded = true;
     require_once("Views/base.php");
 } else if (isPage($uri, "new_classe", true, $loggedIn) && $user["user_access"] > 0) {
     $template = "Views/Classes/newClasse.php";
     $title = "Nouvelle classe";
-    $main_style = "flex column center-content";
+    $main_style = "flex column center-content gray-bg";
 
     if (isset($_POST["annee_scolaire"])) {
         $new_annee_scolaire = $_POST["annee_scolaire"];

@@ -53,7 +53,8 @@
 
 
                             $selectedAttributes = $isSelected ? "class=\"selected\"" : "class=\"clickable\" onClick=\"window.open('?selected=$id', '_self')\"";
-                            echo("
+                            if ($user["user_access"] > 0) {
+                                echo("
                                 <tr $selectedAttributes>
                                     <td>
                                         $date
@@ -76,6 +77,21 @@
                                     </td>
                                 </tr>
                             ");
+                            } else {
+                                echo("
+                                <tr $selectedAttributes>
+                                    <td>
+                                        $date
+                                    </td>
+                                    <td>
+                                        $heure_debut
+                                    </td>
+                                    <td>
+                                        $heure_fin
+                                    </td>
+                                </tr>
+                            ");
+                            }
                         }
                     ?>
 
@@ -139,7 +155,9 @@
                                         $classe = "UNKNOWN";
                                     }
                                 }
-                                echo("
+
+                                if ($user["user_access"] > 0) {
+                                    echo("
                                 <tr>
                                     <td>
                                         $raison
@@ -164,7 +182,25 @@
                                         </span>
                                     </td>
                                 </tr>
-                            ");
+                                ");
+                                } else {
+                                    echo("
+                                <tr>
+                                    <td>
+                                        $raison
+                                    </td>
+                                    <td>
+                                        $classe
+                                    </td>
+                                    <td>
+                                        $nom
+                                    </td>
+                                    <td>
+                                        $prenom
+                                    </td>
+                                </tr>
+                                ");
+                                }
                             }
                         }
                     ?>

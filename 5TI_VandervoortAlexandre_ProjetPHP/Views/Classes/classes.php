@@ -26,8 +26,8 @@ $max = $min + 10;
             $annee_scolaire = $element->cla_annee_scolaire;
             $classe_nom = $element->cla_annee;
 
-
-            echo ("
+            if ($user["user_access"] > 0) {
+                echo ("
                     <tr>
                         <td>
                             $annee_scolaire
@@ -47,6 +47,18 @@ $max = $min + 10;
                         </td>
                      </tr>
             ");
+            } else {
+                echo ("
+                    <tr>
+                        <td>
+                            $annee_scolaire
+                        </td>
+                        <td>
+                            $classe_nom
+                        </td>
+                     </tr>
+            ");
+            }
         }
         ?>
 

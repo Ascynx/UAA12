@@ -35,8 +35,8 @@ $max = $min + 10;
             $prenom = $element->ele_prenom;
             $classe = $element->cla_annee;
 
-
-            echo ("
+            if ($user["user_access"] > 0) {
+                echo ("
                     <tr>
                         <td>
                             $nom
@@ -59,6 +59,21 @@ $max = $min + 10;
                         </td>
                      </tr>
             ");
+            } else {
+                echo ("
+                    <tr>
+                        <td>
+                            $nom
+                        </td>
+                        <td>
+                            $prenom
+                        </td>
+                        <td>
+                            $classe
+                        </td>
+                     </tr>
+            ");
+            }
         }
         ?>
 

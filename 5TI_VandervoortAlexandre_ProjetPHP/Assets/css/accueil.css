@@ -6,10 +6,6 @@ body {
     background-color: darkcyan;
 }
 
-.gray-bg, .grey-bg {
-    background-color: gray;
-}
-
 .padded {
     padding: 20px;
 }

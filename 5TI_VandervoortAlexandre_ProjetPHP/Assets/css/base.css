@@ -104,3 +104,7 @@ a:focus {
 .inherit-display {
     display: inherit;
 }
+
+.gray-bg, .grey-bg {
+    background-color: gray;
+}
