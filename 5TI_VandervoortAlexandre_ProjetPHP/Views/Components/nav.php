@@ -1,8 +1,21 @@
 <div class="nav flex row space-between">
-    <div class="img-container center-self">
-            <a href="/"><img src="Assets/images/book.png" alt="Naviguer vers l'Index"></a>
+    <div class="flex row space-between center-items pad-small">
+        <div class="img-container center-self">
+                <a href="/"><img src="Assets/images/book.png" alt="Naviguer vers l'Index"></a>
+        </div>
+        <?php if ($loggedIn): ?>
+        <div class="flex row space-between pad-small">
+            <div class="pad-small">
+                <a href="/eleves"><span>Eleves</span></a>
+            </div>
+            <div class="pad-small">
+                <a href="/classes"><span>Classes</span></a>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
-    <div class="user">
+    
+    <div class="user pad-small">
         <?php if ($loggedIn) : ?>
             <div class="flex row">
             <div class="user padded-small   ">
