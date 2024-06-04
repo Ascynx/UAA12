@@ -71,18 +71,36 @@ require_once("Models/userModel.php");
 
             </div>
         </a>
-        <div class="flex row space-between interactible-disabled">
-            <p>
-                Niveau d'accès
-            </p>
-            <div class="flex row center-items center-content">
+        <?php if ($user["user_access"] >= 2 && $user["user_access"] > $editUser["user_access"]): ?>
+            <div class="flex row space-between interactible" id="useraccess">
                 <p>
-                    <?= getStringAccessFrom($editUser["user_access"])->name ?>
+                    Niveau d'accès
                 </p>
+                <select name="suseraccess" id="suseraccess">
+                    <?php foreach (Access::asArray() as $option): ?>
+                        <?php $accOption = getStringAccessFrom($option)?>
+                        <?php if($accOption == getStringAccessFrom($editUser["user_access"])): ?>
+                            <option value="<?= $accOption->value?>" selected><?= $accOption->name ?></option>
+                        <?php else: ?>
+                            <option value="<?= $accOption->value?>"><?= $accOption->name ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
             </div>
-        </div>
+        <?php else : ?>
+            <div class="flex row space-between interactible-disabled">
+                <p>
+                    Niveau d'accès
+                </p>
+                <div class="flex row center-items center-content">
+                    <p>
+                        <?= getStringAccessFrom($editUser["user_access"])->name ?>
+                    </p>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="flex row space-between">
-            <input type="submit" value="Mettre à jour" class="center-self center-content center-items" <?= $edit === "" ? "disabled=\"disabled\"" : "" ?>>
+            <input type="submit" value="Mettre à jour" id="submit" class="center-self center-content center-items" <?= $edit === "" ? "disabled=\"disabled\"" : "" ?>>
             <a href="/disconnect">
                 <button type="button">Déconnexion</button>
             </a>
@@ -97,3 +115,13 @@ require_once("Models/userModel.php");
 </div>
 
 <script src="/Assets/scripts/utils.js"></script>
+
+<script>
+    document.querySelector('#suseraccess').addEventListener("change", function() {
+        if (<?=$editUser["user_access"]?> != this.value) {
+            document.querySelector('#submit').disabled = "";
+        } else {
+            document.querySelector('#submit').disabled = "disabled";
+        }
+    })
+</script>

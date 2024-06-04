@@ -13,6 +13,11 @@
             </div>
         </div>
         <?php endif; ?>
+        <?php if ($loggedIn && $user["user_access"] >= 2): ?>
+             <div class="pad-small">
+                <a href="/userindex"><span>Utilisateurs</span></a>
+             </div>   
+        <?php endif; ?> 
     </div>
     
     <div class="user pad-small">
@@ -36,6 +41,6 @@
                     </div>
                 </div>
             </a>
-        <?php endif; ?> 
+        <?php endif; ?>
     </div>
 </div>

@@ -5,6 +5,28 @@
         case Visiteur = 0;
         case Manager = 1;
         case Administrateur = 2;
+
+        public static function values(): array
+        {
+            return array_column(self::cases(), 'value');
+        }
+
+        public static function names(): array {
+            return array_column(self::cases(), 'name');
+        }
+
+        public static function asArray(): array
+        {
+            if (empty(self::values())) {
+                return self::names();
+            }
+        
+            if (empty(self::names())) {
+                return self::values();
+            }
+        
+            return array_column(self::cases(), 'value', 'name');
+        }
     }
 
     function login_user_and_load_into_session(string $emailName, string $pass): bool {
@@ -64,6 +86,15 @@
             } else {
                 throw new Exception('Failed to delete user');
             }
+        }
+    }
+
+    function admin_delete_user(string $userId, array $admin) {
+        $user = loadUser($userId);
+        if ($admin["user_access"] >= 2 && $admin["user_access"] > $user->user_access) {
+            deleteUser($userId);
+        } else {
+            throw new Exception("Vous n'avez pas les permissions pour supprimer cet utilisateur");
         }
     }
 
@@ -193,6 +224,15 @@
         return $results[0]->user_name;
     }
 
+    function setAccess(string $userId, string $access) {
+        $pdo = get_pdo();
+        $query = create_user_update_query('user_access');
+        run_advanced_query($pdo, $query, [
+            'val'=>$access,
+            'id'=>$userId
+        ]);
+    }
+
     function setUsername($userId, $newUsername) {
         $pdo = get_pdo();
         $query = create_user_update_query('user_name');
@@ -299,6 +339,29 @@
         }
         return true;
     }
+
+    function getAllUsersFromTo(int $min, int $max): array {
+        $pdo = get_pdo();
+        $query = create_get_all_users();
+        $results = run_advanced_query($pdo, $query, []);
+        if (sizeof($results) == 0) {
+            return [];
+        }
+
+        $newResults = [];
+        $j = 0;
+        for ($i = $min; $i < $max; $i++) {
+            if (isset($results[$i])) {
+                $newResults[$j] = $results[$i];
+                $j++;
+            } else {
+                break;
+            }
+        }
+
+        return $newResults;
+    }
+
     function createTestUser(): array {
         $u = array('userId' => 'test', 'user_name' => 'Ascynx', 'user_salt' => 'unset', 'user_salted_hash' => 'unset', 'user_access' => 0);
         return $u;
@@ -326,4 +389,8 @@
 
     function create_get_id_using_email_query(): string {
         return "SELECT user_id FROM utilisateurs WHERE user_email=:email";
+    }
+
+    function create_get_all_users(): string {
+        return "SELECT * FROM utilisateurs";
     }

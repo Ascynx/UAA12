@@ -86,13 +86,23 @@ if (isPage($uri, "/signin", false, $loggedIn)) {
 
         if (isset($_POST)) {
             if ($canEdit) {
+                //update user_access
+                if (isset($_POST['suseraccess']) && $user["user_access"] >= 2) {
+                    $user_access = $_POST['suseraccess'];
+                    if ($user_access !== '') {
+                        setAccess($editUser['user_id'], $user_access);
+
+                        header("Location:" . "/profil?editUser=" . $editUser['user_id'], TRUE, 303);
+                    }
+                }
+
                 //update name
                 if (isset($_POST['name'])) {
                     $name = $_POST['name'];
                     if ($name !== '') {
                         setUsername($editUser['user_id'], $name);
 
-                        header("Location:" . "/profil", TRUE, 303);
+                        header("Location:" . "/profil?editUser=" . $editUser['user_id'], TRUE, 303);
                     }
                 }
                 //update email
@@ -101,7 +111,7 @@ if (isPage($uri, "/signin", false, $loggedIn)) {
                     if ($email !== '') {
                         setEmail($editUser['user_id'], $email);
 
-                        header("Location:" . "/profil", TRUE, 303);
+                        header("Location:" . "/profil?editUser=" . $editUser['user_id'], TRUE, 303);
                     }
                 }
                 //update password
@@ -111,7 +121,7 @@ if (isPage($uri, "/signin", false, $loggedIn)) {
                         $hash = setPassword($editUser['user_id'], $pass);
 
                         $_SESSION['userHash'] = $hash;
-                        header("Location:" . "/profil", TRUE, 303);
+                        header("Location:" . "/profil?editUser=" . $editUser['user_id'], TRUE, 303);
                     }
                 }
             }
@@ -129,4 +139,23 @@ if (isPage($uri, "/signin", false, $loggedIn)) {
         delete_and_unload_user($user, $pass);
     }
     header("Location:" . "/", TRUE, 303);
+} else if (isPage($uri, "/deladmin", true, $loggedIn) && $user["user_access"] >= 2) {
+    try {
+        if (isset($components["userId"]) && filter_var($components["userId"], FILTER_VALIDATE_INT)) {
+            admin_delete_user($components["userId"], $user);
+        }
+    } catch (_ignored) {}
+    header("Location:" . "/userindex", TRUE, 303);
+} else if (isPage($uri, "userindex", true, $loggedIn) && $user["user_access"] >= 2) {
+    $main_style = "flex column center-content gray-bg ";
+    $template = "Views/Users/userIndex.php";
+    $title = "Table des utilisateurs";
+
+    $page = 0;
+    if (isset($components["page"]) && filter_var($components["page"], FILTER_VALIDATE_INT)) {
+        $page = (int)$components["page"];
+    }
+
+    $pageLoaded = true;
+    require_once("Views/base.php");
 }
