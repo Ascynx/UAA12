@@ -33,3 +33,7 @@ tr.selected {
 .highlightOnHover:hover {
     background-color:burlywood;
 }
+
+.wrap {
+    flex-wrap: wrap;
+}
